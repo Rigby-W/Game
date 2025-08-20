@@ -1,3 +1,4 @@
+
 # Example file showing a circle moving on screen
 import pygame
 pygame.font.init()
@@ -6,7 +7,7 @@ font = pygame.font.SysFont("Arial", 30)
 pygame.init()
 screen_x=1280
 screen_y=720
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((screen_x, screen_y))
 clock = pygame.time.Clock()
 running = True
 dt = 0
@@ -29,13 +30,13 @@ while running:
     pygame.draw.circle(screen, "white", player_pos, player_size)
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_w] and player_pos.y>32 or keys[pygame.K_UP] and player_pos.y>(player_size):
+    if keys[pygame.K_w] and player_pos.y>(player_size) or keys[pygame.K_UP] and player_pos.y>(player_size):
         player_pos.y -= 200 * dt / (player_size/10)
-    if keys[pygame.K_s] and player_pos.y<690 or keys[pygame.K_DOWN] and player_pos.y<(screen_y-player_size):
+    if keys[pygame.K_s] and player_pos.y<(screen_y-player_size) or keys[pygame.K_DOWN] and player_pos.y<(screen_y-player_size):
         player_pos.y += 200 * dt / (player_size/10)
-    if keys[pygame.K_a] and player_pos.x>32 or keys[pygame.K_LEFT] and player_pos.x>(player_size):
+    if keys[pygame.K_a] and player_pos.x>(player_size) or keys[pygame.K_LEFT] and player_pos.x>(player_size):
         player_pos.x -= 200 * dt / (player_size/10)
-    if keys[pygame.K_d] and player_pos.x<1250 or keys[pygame.K_RIGHT] and player_pos.x<(screen_x-player_size):
+    if keys[pygame.K_d] and player_pos.x<(screen_x-player_size) or keys[pygame.K_RIGHT] and player_pos.x<(screen_x-player_size):
         player_pos.x += 200 * dt / (player_size/10)
     if keys[pygame.K_z] and player_size > 5:
         player_size -= 0.1
