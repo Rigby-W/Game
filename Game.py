@@ -15,11 +15,16 @@ dt = 0
 player_size=10
 score=0
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-apple_pos_x = 0
-apple_pos_y = 0
-apple_pos = pygame.Vector2(apple_pos_x,apple_pos_y)
-def spawn_apple():
-    pygame.draw.circle(screen, "red", apple_pos, 8)
+class Food(object):
+    def __init__(self):
+        self.eaten = False
+        self.spawn_apple()
+    def spawn_apple(self):
+        self.apple_pos_x=random.randint(8,(screen_x-8))
+        self.apple_pos_y=random.randint(8,(screen_y-8))
+    def draw_apple(self):
+        pygame.draw.circle(screen, "red", (self.apple_pos_x,self.apple_pos_y) ,10)
+apple=Food()
 while running:
     start_time = pygame.time.get_ticks()
     game_time_sec = round(start_time/1000)%60
@@ -41,10 +46,7 @@ while running:
     screen.blit(timer_surface, ((20), (15)))
     screen.blit(score_surface, ((20), (40)))
     pygame.draw.circle(screen, "white", player_pos, player_size)
-    if (game_time_sec%10)==0:
-        apple_pos_x==random.randint(8,(screen_x-8))
-        apple_pos_y==random.randint(8,(screen_y-8))
-    spawn_apple()
+    apple.draw_apple()
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w] and player_pos.y>(player_size) or keys[pygame.K_UP] and player_pos.y>(player_size):
         player_pos.y -= 200 * dt / (player_size/10)
