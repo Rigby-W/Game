@@ -1,10 +1,7 @@
-
-# Example file showing a circle moving on screen
 import pygame
 import random
 pygame.font.init()
 font = pygame.font.SysFont("Arial", 30)
-# pygame setup
 pygame.init()
 screen_x=1280
 screen_y=720
@@ -40,12 +37,9 @@ while running:
     player_size==10
     score==0
     score_surface = font.render(f"Score: {score}", True, (50, 50, 50))
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    # fill the screen with a color to wipe away anything from last frame
     screen.fill("blue")
     screen.blit(timer_surface, ((20), (15)))
     screen.blit(score_surface, ((20), (40)))
@@ -77,11 +71,6 @@ while running:
         if player_size < 50:
             player_size += 5
         apple.eat_apple()
-    # flip() the display to put your work on screen
     pygame.display.flip()
-
-    # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
     dt = clock.tick(60) / 1000
 pygame.quit()
