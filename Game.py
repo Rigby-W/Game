@@ -99,7 +99,7 @@ while running:
         apple_r.eat_apple()
     if player_pos.x >= (apple_g.apple_pos_x-player_size) and player_pos.x <= (apple_g.apple_pos_x+player_size) and player_pos.y >= (apple_g.apple_pos_y-player_size) and player_pos.y <=(apple_g.apple_pos_y+player_size) and player_size >= 15:
         score += round(score*0.25)
-        player_size == 5
+        player_size =+ 5
         apple_g.eat_apple()
     if player_pos.x >= (apple_p.apple_pos_x-player_size) and player_pos.x <= (apple_p.apple_pos_x+player_size) and player_pos.y >= (apple_p.apple_pos_y-player_size) and player_pos.y <=(apple_p.apple_pos_y+player_size):
         chance=random.randint(0,9)
@@ -117,12 +117,12 @@ while running:
             if player_size > 10:
                 player_size -= 5
             else:
-                player_size == 5
+                player_size =+ 5
         elif chance == 6:
             if player_size < 50:
                 player_size += 5
             else:
-                player_size == 50
+                player_size =+ 50
         elif chance == 7:
             score += 0
         elif chance == 8:
