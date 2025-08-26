@@ -112,7 +112,7 @@ while running:
         elif chance == 3:
             score -= round(score*0.5)
         elif chance == 4:
-            player_size == 25
+            player_size =+ 25
         elif chance == 5:
             if player_size > 10:
                 player_size -= 5
