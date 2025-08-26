@@ -38,6 +38,20 @@ class Apple_Green(object):
         self.apple_pos_y=random.randint(8,(screen_y-8))
     def draw_apple(self):
         pygame.draw.circle(screen, "green", (self.apple_pos_x,self.apple_pos_y) ,12)
+class Apple_Purple(object):
+    def eat_apple(self):
+        self.eaten = True
+        self.spawn_apple()
+        self.eaten = False
+    def __init__(self):
+        self.eaten = False
+        self.spawn_apple()
+    def spawn_apple(self):
+        self.apple_pos_x=random.randint(8,(screen_x-8))
+        self.apple_pos_y=random.randint(8,(screen_y-8))
+    def draw_apple(self):
+        pygame.draw.circle(screen, "purple", (self.apple_pos_x,self.apple_pos_y) ,10)
+apple_p=Apple_Purple()
 apple_r=Apple_Red()
 apple_g=Apple_Green()
 while running:
@@ -60,6 +74,7 @@ while running:
     pygame.draw.circle(screen, "white", player_pos, player_size)
     apple_r.draw_apple()
     apple_g.draw_apple()
+    apple_p.draw_apple()
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w] and player_pos.y>(player_size) or keys[pygame.K_UP] and player_pos.y>(player_size):
         player_pos.y -= 200 * dt / (player_size/10)
@@ -77,10 +92,6 @@ while running:
         player_pos.x += 200 * dt / (player_size/10)
         if player_size > 5:
             player_size -= 0.5*dt
-    if keys[pygame.K_z] and player_size > 5:
-        player_size -= 5*dt
-    if keys[pygame.K_x] and player_size < 50:
-        player_size += 5*dt
     if player_pos.x >= (apple_r.apple_pos_x-player_size) and player_pos.x <= (apple_r.apple_pos_x+player_size) and player_pos.y >= (apple_r.apple_pos_y-player_size) and player_pos.y <=(apple_r.apple_pos_y+player_size):
         score += round(player_size*2)
         if player_size < 50:
@@ -88,8 +99,41 @@ while running:
         apple_r.eat_apple()
     if player_pos.x >= (apple_g.apple_pos_x-player_size) and player_pos.x <= (apple_g.apple_pos_x+player_size) and player_pos.y >= (apple_g.apple_pos_y-player_size) and player_pos.y <=(apple_g.apple_pos_y+player_size) and player_size >= 15:
         score += round(score*0.25)
-        player_size =+ 5
+        player_size == 5
         apple_g.eat_apple()
+    if player_pos.x >= (apple_p.apple_pos_x-player_size) and player_pos.x <= (apple_p.apple_pos_x+player_size) and player_pos.y >= (apple_p.apple_pos_y-player_size) and player_pos.y <=(apple_p.apple_pos_y+player_size):
+        chance=random.randint(0,9)
+        if chance == 0:
+            score += round(player_size*2)
+        elif chance == 1:
+            score -= round(player_size*1.5)
+        elif chance == 2:
+            score += round(score*0.5)
+        elif chance == 3:
+            score -= round(score*0.5)
+        elif chance == 4:
+            player_size += 5
+        elif chance == 5:
+            if player_size > 10:
+                player_size -= 5
+            else:
+                player_size == 5
+        elif chance == 6:
+            if player_size < 50:
+                player_size += 5
+            else:
+                player_size == 50
+        elif chance == 7:
+            score += 0
+        elif chance == 8:
+            player_pos.x = random.randint(round(player_size), round(screen_x-player_size))
+            player_pos.y = random.randint(round(player_size), round(screen_y-player_size))
+            apple_r.eat_apple()
+            apple_g.eat_apple()
+        elif chance == 9:
+            player_pos.x = random.randint(round(player_size), round(screen_x-player_size))
+            player_pos.y = random.randint(round(player_size), round(screen_y-player_size))
+        apple_p.eat_apple()
     pygame.display.flip()
     dt = clock.tick(60) / 1000
 pygame.quit()
