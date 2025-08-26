@@ -11,6 +11,7 @@ running = True
 dt = 0
 player_size=10
 score=0
+highscore=0
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 class Apple_Red(object):
     def eat_apple(self):
@@ -55,6 +56,10 @@ apple_p=Apple_Purple()
 apple_r=Apple_Red()
 apple_g=Apple_Green()
 while running:
+    if highscore < score:
+        highscore =+ score
+    else:
+        highscore += 0
     start_time = pygame.time.get_ticks()
     game_time_sec = round(start_time/1000)%60
     game_time_min = round(start_time/1000)//60
@@ -64,6 +69,8 @@ while running:
         timer_surface = font.render(f"Time: {game_time_min}:{game_time_sec}", True, (0, 0, 0))
     player_size==10
     score==0
+    highscore==0
+    highscore_surface = font.render(f"Highscore: {highscore}", True, (50, 50, 50))
     score_surface = font.render(f"Score: {score}", True, (50, 50, 50))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -71,6 +78,7 @@ while running:
     screen.fill("blue")
     screen.blit(timer_surface, ((20), (15)))
     screen.blit(score_surface, ((20), (40)))
+    screen.blit(highscore_surface, ((20), (65)))
     pygame.draw.circle(screen, "white", player_pos, player_size)
     apple_r.draw_apple()
     apple_g.draw_apple()
@@ -92,6 +100,10 @@ while running:
         player_pos.x += 200 * dt / (player_size/10)
         if player_size > 5:
             player_size -= 0.5*dt
+    if keys[pygame.K_r]:
+        score=+0
+        player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+        player_size =+ 10
     if player_pos.x >= (apple_r.apple_pos_x-player_size) and player_pos.x <= (apple_r.apple_pos_x+player_size) and player_pos.y >= (apple_r.apple_pos_y-player_size) and player_pos.y <=(apple_r.apple_pos_y+player_size):
         score += round(player_size*2)
         if player_size < 50:
