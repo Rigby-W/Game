@@ -82,7 +82,6 @@ while running:
     if game==1:
         keys = pygame.key.get_pressed()
         t1=time.time()
-        t0==t1
         game_time = t1-t0
         game_time_min = round(game_time//60)
         game_time_sec = round(game_time%60)
