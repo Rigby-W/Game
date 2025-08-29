@@ -101,6 +101,8 @@ while running:
             timer_surface = font.render(f"Time: {game_time_min}:0{game_time_sec}", True, (200, 200, 200))
         else:
             timer_surface = font.render(f"Time: {game_time_min}:{game_time_sec}", True, (200, 200, 200))
+        player_size_rounded = round(player_size)
+        size_surface = font.render(f"Size: {player_size_rounded}", True, 200, 200, 200)
         highscore_surface = font.render(f"Highscore: {highscore}", True, (200, 200, 200))
         score_surface = font.render(f"Score: {score}", True, (200, 200, 200))
         for event in pygame.event.get():
@@ -111,6 +113,7 @@ while running:
         screen.blit(timer_surface, ((20), (20)))
         screen.blit(score_surface, ((20), (55)))
         screen.blit(highscore_surface, ((20), (90)))
+        screen.blit(size_surface, ((20), (115)))
         pygame.draw.circle(screen, "white", player_pos, player_size)
         apple_r.draw_apple()
         apple_g.draw_apple()
@@ -148,13 +151,13 @@ while running:
             game = 2
         #red apple being eaten
         if player_pos.x >= (apple_r.apple_pos_x-player_size) and player_pos.x <= (apple_r.apple_pos_x+player_size) and player_pos.y >= (apple_r.apple_pos_y-player_size) and player_pos.y <=(apple_r.apple_pos_y+player_size):
-            score += round(player_size*2)
+            score += round(player_size*1.5)
             if player_size < 50:
                 player_size += 5
             apple_r.eat_apple()
         #green apple being eaten
-        if player_pos.x >= (apple_g.apple_pos_x-player_size) and player_pos.x <= (apple_g.apple_pos_x+player_size) and player_pos.y >= (apple_g.apple_pos_y-player_size) and player_pos.y <=(apple_g.apple_pos_y+player_size) and player_size >= 15:
-            score += round(score*0.25)
+        if player_pos.x >= (apple_g.apple_pos_x-player_size) and player_pos.x <= (apple_g.apple_pos_x+player_size) and player_pos.y >= (apple_g.apple_pos_y-player_size) and player_pos.y <=(apple_g.apple_pos_y+player_size) and round(player_size) >= 15:
+            score += round(score*0.5)
             player_size =+ 5
             apple_g.eat_apple()
         #purple apple being eaten
@@ -162,30 +165,28 @@ while running:
             #purple apple's "loot table" (a.k.a. what the apple does) 
             chance=random.randint(0,9)
             if chance == 0:
-                score += round(player_size*2)
+                score += round(player_size*3)
             elif chance == 1:
-                score -= round(player_size*1.5)
+                score -= round(player_size*2)
             elif chance == 2:
-                score += round(score*0.5)
+                score += score
             elif chance == 3:
                 score -= round(score*0.5)
             elif chance == 4:
                 player_size =+ 25
             elif chance == 5:
-                if player_size > 10:
-                    player_size -= 5
+                if player_size > 15:
+                    player_size -= 10
                 else:
                     player_size =+ 5
             elif chance == 6:
-                if player_size < 50:
-                    player_size += 5
+                if player_size < 40:
+                    player_size += 10
                 else:
                     player_size =+ 50
             elif chance == 7:
                 score += 0
             elif chance == 8:
-                player_pos.x = random.randint(round(player_size), round(screen_x-player_size))
-                player_pos.y = random.randint(round(player_size), round(screen_y-player_size))
                 apple_r.eat_apple()
                 apple_g.eat_apple()
             elif chance == 9:
@@ -198,7 +199,7 @@ while running:
         keys = pygame.key.get_pressed()
         start_text="Press Space to resume the game"
         line_1_text="Red Apple adds score based on size and increases size"
-        line_2_text="Green Apple multiplies score by 1.25 and shrinks you down to the minimum size"
+        line_2_text="Green Apple multiplies score by 1.5 and shrinks you down to the minimum size but you have to be at least size 15"
         line_3_text="Purple Apple does a random effect"
         start_font_x,start_font_y=font.size(start_text)
         line_1_x,line_1_y=font.size(line_1_text)
