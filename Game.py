@@ -102,7 +102,7 @@ while running:
         else:
             timer_surface = font.render(f"Time: {game_time_min}:{game_time_sec}", True, (200, 200, 200))
         player_size_rounded = round(player_size)
-        size_surface = font.render(f"Size: {player_size_rounded}", True, 200, 200, 200)
+        size_surface = font.render(f"Size: {player_size_rounded}", True, (200, 200, 200))
         highscore_surface = font.render(f"Highscore: {highscore}", True, (200, 200, 200))
         score_surface = font.render(f"Score: {score}", True, (200, 200, 200))
         for event in pygame.event.get():
@@ -111,9 +111,9 @@ while running:
         #fill the screen first before you put your objects in
         screen.fill((0, 0, 100))
         screen.blit(timer_surface, ((20), (20)))
-        screen.blit(score_surface, ((20), (55)))
-        screen.blit(highscore_surface, ((20), (90)))
-        screen.blit(size_surface, ((20), (115)))
+        screen.blit(score_surface, ((20), (50)))
+        screen.blit(highscore_surface, ((20), (80)))
+        screen.blit(size_surface, ((20), (110)))
         pygame.draw.circle(screen, "white", player_pos, player_size)
         apple_r.draw_apple()
         apple_g.draw_apple()
@@ -156,7 +156,7 @@ while running:
                 player_size += 5
             apple_r.eat_apple()
         #green apple being eaten
-        if player_pos.x >= (apple_g.apple_pos_x-player_size) and player_pos.x <= (apple_g.apple_pos_x+player_size) and player_pos.y >= (apple_g.apple_pos_y-player_size) and player_pos.y <=(apple_g.apple_pos_y+player_size) and round(player_size) >= 15:
+        if player_pos.x >= (apple_g.apple_pos_x-player_size) and player_pos.x <= (apple_g.apple_pos_x+player_size) and player_pos.y >= (apple_g.apple_pos_y-player_size) and player_pos.y <=(apple_g.apple_pos_y+player_size) and player_size_rounded >= 15:
             score += round(score*0.5)
             player_size =+ 5
             apple_g.eat_apple()
