@@ -64,20 +64,25 @@ while running:
         keys = pygame.key.get_pressed()
         start_text="Press Space to start"
         start_font_x,start_font_y=font.size(start_text)
-        start_surface=font.render(start_text, True, (0, 0, 0))
+        start_surface=font.render(start_text, True, (200, 200, 200))
         font_size = 60
         my_font = pygame.font.SysFont("Arial", font_size)
         title_text="Apple Game"
         title_font_x,title_font_y=my_font.size(title_text)
-        title_surface=my_font.render(title_text, True, (100, 0, 100))
+        title_surface=my_font.render(title_text, True, (150, 50, 150))
         screen.fill((0, 0, 100))
         screen.blit(start_surface, ((screen_x/2-start_font_x/2), (screen_y/2-start_font_y/2)))
         screen.blit(title_surface, ((screen_x/2-title_font_x/2), (screen_y/4-title_font_y/2)))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+        #shifting the screens
         if keys[pygame.K_SPACE]:
             game = 1
+            t1=time.time()
+            t0 =+ t1
+        if keys[pygame.K_ESCAPE]:
+            game = 2
         pygame.display.flip()
     if game==1:
         keys = pygame.key.get_pressed()
@@ -93,19 +98,19 @@ while running:
         score==0
         highscore==0
         if game_time_sec < 10:
-            timer_surface = font.render(f"Time: {game_time_min}:0{game_time_sec}", True, (0, 0, 0))
+            timer_surface = font.render(f"Time: {game_time_min}:0{game_time_sec}", True, (200, 200, 200))
         else:
-            timer_surface = font.render(f"Time: {game_time_min}:{game_time_sec}", True, (0, 0, 0))
-        highscore_surface = font.render(f"Highscore: {highscore}", True, (0, 0, 0))
-        score_surface = font.render(f"Score: {score}", True, (0, 0, 0))
+            timer_surface = font.render(f"Time: {game_time_min}:{game_time_sec}", True, (200, 200, 200))
+        highscore_surface = font.render(f"Highscore: {highscore}", True, (200, 200, 200))
+        score_surface = font.render(f"Score: {score}", True, (200, 200, 200))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
         #fill the screen first before you put your objects in
         screen.fill((0, 0, 100))
-        screen.blit(timer_surface, ((20), (15)))
-        screen.blit(score_surface, ((20), (40)))
-        screen.blit(highscore_surface, ((20), (65)))
+        screen.blit(timer_surface, ((20), (20)))
+        screen.blit(score_surface, ((20), (55)))
+        screen.blit(highscore_surface, ((20), (90)))
         pygame.draw.circle(screen, "white", player_pos, player_size)
         apple_r.draw_apple()
         apple_g.draw_apple()
@@ -138,6 +143,9 @@ while running:
             player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
             player_size =+ 10
             t0 = t1
+        #screen shifting
+        if keys[pygame.K_ESCAPE]:
+            game = 2
         #red apple being eaten
         if player_pos.x >= (apple_r.apple_pos_x-player_size) and player_pos.x <= (apple_r.apple_pos_x+player_size) and player_pos.y >= (apple_r.apple_pos_y-player_size) and player_pos.y <=(apple_r.apple_pos_y+player_size):
             score += round(player_size*2)
@@ -186,4 +194,30 @@ while running:
             apple_p.eat_apple()
         pygame.display.flip()
         dt = clock.tick(60) / 1000
+    if game == 2:
+        keys = pygame.key.get_pressed()
+        start_text="Press Space to resume the game"
+        line_1_text="Red Apple adds score based on size and increases size"
+        line_2_text="Green Apple multiplies score by 1.25 and shrinks you down to the minimum size"
+        line_3_text="Purple Apple does a random effect"
+        start_font_x,start_font_y=font.size(start_text)
+        line_1_x,line_1_y=font.size(line_1_text)
+        line_2_x,line_2_y=font.size(line_2_text)
+        line_3_x,line_3_y=font.size(line_3_text)
+        start_surface=font.render(start_text, True, (200, 200, 200))
+        line_1_surface=font.render(line_1_text, True, (200, 200, 200))
+        line_2_surface=font.render(line_2_text, True, (200, 200, 200))
+        line_3_surface=font.render(line_3_text, True, (200, 200, 200))
+        screen.fill((0, 0, 100))
+        screen.blit(start_surface, ((screen_x/2-start_font_x/2), (screen_y/8-start_font_y/2)))
+        screen.blit(line_1_surface, ((screen_x/2-line_1_x/2), (screen_y/4+40-line_1_y/2)))
+        screen.blit(line_2_surface, ((screen_x/2-line_2_x/2), (screen_y/4+80-line_2_y/2)))
+        screen.blit(line_3_surface, ((screen_x/2-line_3_x/2), (screen_y/4+120-line_3_y/2)))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        pygame.display.flip()
+        #shifting the screens
+        if keys[pygame.K_SPACE]:
+            game = 1
 pygame.quit()
