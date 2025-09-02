@@ -205,8 +205,8 @@ while running:
         line_5_text="Shift to Slowdown (doesnt slow the timer)"
         line_6_text="You lose size when you move"
         line_7_text="More size = More points"
-        line_8_text="Speed is based off of size"
-        line_9_text="Smaller size = More speed"
+        line_8_text="Less size = More speed"
+        line_9_text="Get as many points as you can and aim for a high score"
         start_font_x,start_font_y=font.size(start_text)
         line_1_x,line_1_y=font.size(line_1_text)
         line_2_x,line_2_y=font.size(line_2_text)
