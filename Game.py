@@ -2,7 +2,7 @@ import pygame
 import random
 import time
 pygame.font.init()
-font = pygame.font.SysFont("Arial", 30)
+font = pygame.font.SysFont("Arial", 25)
 pygame.init()
 screen_x=1280
 screen_y=720
@@ -61,15 +61,15 @@ speed=200
 game=0
 while running:
     if game==0:
+        font_size = 60
+        my_font = pygame.font.SysFont("Arial", font_size)
         keys = pygame.key.get_pressed()
         start_text="Press Space to start"
         start_font_x,start_font_y=font.size(start_text)
         start_surface=font.render(start_text, True, (200, 200, 200))
-        font_size = 60
-        my_font = pygame.font.SysFont("Arial", font_size)
-        title_text="Apple Game"
+        title_text="Orbs and Apples"
         title_font_x,title_font_y=my_font.size(title_text)
-        title_surface=my_font.render(title_text, True, (150, 50, 150))
+        title_surface=my_font.render(title_text, True, (175, 75, 175))
         screen.fill((0, 0, 100))
         screen.blit(start_surface, ((screen_x/2-start_font_x/2), (screen_y/2-start_font_y/2)))
         screen.blit(title_surface, ((screen_x/2-title_font_x/2), (screen_y/4-title_font_y/2)))
@@ -111,9 +111,9 @@ while running:
         #fill the screen first before you put your objects in
         screen.fill((0, 0, 100))
         screen.blit(timer_surface, ((20), (20)))
-        screen.blit(score_surface, ((20), (50)))
-        screen.blit(highscore_surface, ((20), (80)))
-        screen.blit(size_surface, ((20), (110)))
+        screen.blit(score_surface, ((20), (45)))
+        screen.blit(highscore_surface, ((20), (70)))
+        screen.blit(size_surface, ((20), (95)))
         pygame.draw.circle(screen, "white", player_pos, player_size)
         apple_r.draw_apple()
         apple_g.draw_apple()
@@ -198,22 +198,46 @@ while running:
     if game == 2:
         keys = pygame.key.get_pressed()
         start_text="Press Space to resume the game"
-        line_1_text="Red Apple adds score based on size and increases size"
-        line_2_text="Green Apple multiplies score by 1.5 and shrinks you down to the minimum size but you have to be at least size 15"
-        line_3_text="Purple Apple does a random effect"
+        line_1_text="Red Apple: adds score based on size and increases size"
+        line_2_text="Green Apple: 1.5x score and lowers size if size is more than or at 15"
+        line_3_text="Purple Apple: does a random effect"
+        line_4_text="Arrows or WASD to move"
+        line_5_text="Shift to Slowdown (doesnt slow the timer)"
+        line_6_text="You lose size when you move"
+        line_7_text="More size = More points"
+        line_8_text="Speed is based off of size"
+        line_9_text="Smaller size = More speed"
         start_font_x,start_font_y=font.size(start_text)
         line_1_x,line_1_y=font.size(line_1_text)
         line_2_x,line_2_y=font.size(line_2_text)
         line_3_x,line_3_y=font.size(line_3_text)
+        line_4_x,line_4_y=font.size(line_4_text)
+        line_5_x,line_5_y=font.size(line_5_text)
+        line_6_x,line_6_y=font.size(line_6_text)
+        line_7_x,line_7_y=font.size(line_7_text)
+        line_8_x,line_8_y=font.size(line_8_text)
+        line_9_x,line_9_y=font.size(line_9_text)
         start_surface=font.render(start_text, True, (200, 200, 200))
         line_1_surface=font.render(line_1_text, True, (200, 200, 200))
         line_2_surface=font.render(line_2_text, True, (200, 200, 200))
         line_3_surface=font.render(line_3_text, True, (200, 200, 200))
+        line_4_surface=font.render(line_4_text, True, (200, 200, 200))
+        line_5_surface=font.render(line_5_text, True, (200, 200, 200))
+        line_6_surface=font.render(line_6_text, True, (200, 200, 200))
+        line_7_surface=font.render(line_7_text, True, (200, 200, 200))
+        line_8_surface=font.render(line_8_text, True, (200, 200, 200))
+        line_9_surface=font.render(line_9_text, True, (200, 200, 200))
         screen.fill((0, 0, 100))
         screen.blit(start_surface, ((screen_x/2-start_font_x/2), (screen_y/8-start_font_y/2)))
-        screen.blit(line_1_surface, ((screen_x/2-line_1_x/2), (screen_y/4+40-line_1_y/2)))
-        screen.blit(line_2_surface, ((screen_x/2-line_2_x/2), (screen_y/4+80-line_2_y/2)))
-        screen.blit(line_3_surface, ((screen_x/2-line_3_x/2), (screen_y/4+120-line_3_y/2)))
+        screen.blit(line_1_surface, ((screen_x/2-line_1_x/2), (screen_y/4+(30*1)-line_1_y/2)))
+        screen.blit(line_2_surface, ((screen_x/2-line_2_x/2), (screen_y/4+(30*2)-line_2_y/2)))
+        screen.blit(line_3_surface, ((screen_x/2-line_3_x/2), (screen_y/4+(30*3)-line_3_y/2)))
+        screen.blit(line_4_surface, ((screen_x/2-line_4_x/2), (screen_y/4+(30*4)-line_4_y/2)))
+        screen.blit(line_5_surface, ((screen_x/2-line_5_x/2), (screen_y/4+(30*5)-line_5_y/2)))
+        screen.blit(line_6_surface, ((screen_x/2-line_6_x/2), (screen_y/4+(30*6)-line_6_y/2)))
+        screen.blit(line_7_surface, ((screen_x/2-line_7_x/2), (screen_y/4+(30*7)-line_7_y/2)))
+        screen.blit(line_8_surface, ((screen_x/2-line_8_x/2), (screen_y/4+(30*8)-line_8_y/2)))
+        screen.blit(line_9_surface, ((screen_x/2-line_9_x/2), (screen_y/4+(30*9)-line_9_y/2)))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
