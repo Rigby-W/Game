@@ -122,35 +122,35 @@ while running:
         if (keys[pygame.K_w]  or keys[pygame.K_UP]) and player_pos.y>(0):
             player_pos.y -= speed * dt / (player_size/10)
             if player_size > 5:
-                player_size -= 0.5*dt*(speed/200)
+                player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and player_pos.y<(screen_y):
             player_pos.y += speed * dt / (player_size/10)
             if player_size > 5:
-                player_size -= 0.5*dt*(speed/200)
+                player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and player_pos.x>(0):
             player_pos.x -= speed * dt / (player_size/10)
             if player_size > 5:
-                player_size -= 0.5*dt*(speed/200)
+                player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and player_pos.x<(screen_x):
             player_pos.x += speed * dt / (player_size/10)
             if player_size > 5:
-                player_size -= 0.5*dt*(speed/200)
+                player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_w]  or keys[pygame.K_UP]) and player_pos.y<=(0):
             player_pos.y =+ (screen_y)
             if player_size > 5:
-                player_size -= 0.5*dt*(speed/200)
+                player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and player_pos.y>=(screen_y):
             player_pos.y =+ 0
             if player_size > 5:
-                player_size -= 0.5*dt*(speed/200)
+                player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and player_pos.x<=(0):
             player_pos.x =+ (screen_x)
             if player_size > 5:
-                player_size -= 0.5*dt*(speed/200)
+                player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and player_pos.x>=(screen_x):
             player_pos.x =+ 0
             if player_size > 5:
-                player_size -= 0.5*dt*(speed/200)
+                player_size -= 0.05*(player_size-5)*dt*(speed/200)
         #slowdown mechanic for when you go too fast
         if keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT]):
             speed =+ 100
@@ -168,8 +168,7 @@ while running:
         #red apple being eaten
         if player_pos.x >= (apple_r.apple_pos_x-player_size) and player_pos.x <= (apple_r.apple_pos_x+player_size) and player_pos.y >= (apple_r.apple_pos_y-player_size) and player_pos.y <=(apple_r.apple_pos_y+player_size):
             score += round(player_size*1.5)
-            if player_size < 50:
-                player_size += 5
+            player_size += 5*(player_size/10)
             apple_r.eat_apple()
         #green apple being eaten
         if player_pos.x >= (apple_g.apple_pos_x-player_size) and player_pos.x <= (apple_g.apple_pos_x+player_size) and player_pos.y >= (apple_g.apple_pos_y-player_size) and player_pos.y <=(apple_g.apple_pos_y+player_size) and player_size_rounded >= 15:
@@ -185,9 +184,9 @@ while running:
             elif chance == 1:
                 score -= round(player_size*2)
             elif chance == 2:
-                score += score
+                score += (score*player_size/10)
             elif chance == 3:
-                score -= round(score*0.5)
+                score -= round(score*0.7)
             elif chance == 4:
                 player_size =+ 25
             elif chance == 5:
@@ -196,10 +195,7 @@ while running:
                 else:
                     player_size =+ 5
             elif chance == 6:
-                if player_size < 40:
-                    player_size += 10
-                else:
-                    player_size =+ 50
+                player_size += player_size
             elif chance == 7:
                 score += 0
             elif chance == 8:
