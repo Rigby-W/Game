@@ -119,20 +119,36 @@ while running:
         apple_g.draw_apple()
         apple_p.draw_apple()
         #movement
-        if (keys[pygame.K_w]  or keys[pygame.K_UP]) and player_pos.y>(player_size):
+        if (keys[pygame.K_w]  or keys[pygame.K_UP]) and player_pos.y>(0):
             player_pos.y -= speed * dt / (player_size/10)
             if player_size > 5:
                 player_size -= 0.5*dt*(speed/200)
-        if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and player_pos.y<(screen_y-player_size):
+        if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and player_pos.y<(screen_y):
             player_pos.y += speed * dt / (player_size/10)
             if player_size > 5:
                 player_size -= 0.5*dt*(speed/200)
-        if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and player_pos.x>(player_size):
+        if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and player_pos.x>(0):
             player_pos.x -= speed * dt / (player_size/10)
             if player_size > 5:
                 player_size -= 0.5*dt*(speed/200)
-        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and player_pos.x<(screen_x-player_size):
+        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and player_pos.x<(screen_x):
             player_pos.x += speed * dt / (player_size/10)
+            if player_size > 5:
+                player_size -= 0.5*dt*(speed/200)
+        if (keys[pygame.K_w]  or keys[pygame.K_UP]) and player_pos.y<=(0):
+            player_pos.y =+ (screen_y)
+            if player_size > 5:
+                player_size -= 0.5*dt*(speed/200)
+        if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and player_pos.y>=(screen_y):
+            player_pos.y =+ 0
+            if player_size > 5:
+                player_size -= 0.5*dt*(speed/200)
+        if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and player_pos.x<=(0):
+            player_pos.x =+ (screen_x)
+            if player_size > 5:
+                player_size -= 0.5*dt*(speed/200)
+        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and player_pos.x>=(screen_x):
+            player_pos.x =+ 0
             if player_size > 5:
                 player_size -= 0.5*dt*(speed/200)
         #slowdown mechanic for when you go too fast
