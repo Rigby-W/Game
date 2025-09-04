@@ -57,7 +57,7 @@ class Apple_Purple(object):
 apple_p=Apple_Purple()
 apple_r=Apple_Red()
 apple_g=Apple_Green()
-speed=200
+max_speed=200
 game=0
 while running:
     if game==0:
@@ -119,43 +119,47 @@ while running:
         apple_g.draw_apple()
         apple_p.draw_apple()
         #movement
-        if (keys[pygame.K_w]  or keys[pygame.K_UP]) and player_pos.y>(0):
-            player_pos.y -= speed * dt / (player_size/10)
-            if player_size > 5:
-                player_size -= 0.05*(player_size-5)*dt*(speed/200)
-        if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and player_pos.y<(screen_y):
-            player_pos.y += speed * dt / (player_size/10)
-            if player_size > 5:
-                player_size -= 0.05*(player_size-5)*dt*(speed/200)
-        if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and player_pos.x>(0):
-            player_pos.x -= speed * dt / (player_size/10)
-            if player_size > 5:
-                player_size -= 0.05*(player_size-5)*dt*(speed/200)
-        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and player_pos.x<(screen_x):
-            player_pos.x += speed * dt / (player_size/10)
-            if player_size > 5:
-                player_size -= 0.05*(player_size-5)*dt*(speed/200)
-        if (keys[pygame.K_w]  or keys[pygame.K_UP]) and player_pos.y<=(0):
-            player_pos.y =+ (screen_y)
-            if player_size > 5:
-                player_size -= 0.05*(player_size-5)*dt*(speed/200)
-        if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and player_pos.y>=(screen_y):
-            player_pos.y =+ 0
-            if player_size > 5:
-                player_size -= 0.05*(player_size-5)*dt*(speed/200)
-        if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and player_pos.x<=(0):
-            player_pos.x =+ (screen_x)
-            if player_size > 5:
-                player_size -= 0.05*(player_size-5)*dt*(speed/200)
-        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and player_pos.x>=(screen_x):
-            player_pos.x =+ 0
-            if player_size > 5:
-                player_size -= 0.05*(player_size-5)*dt*(speed/200)
+        if (keys[pygame.K_w]  or keys[pygame.K_UP]):
+            if player_pos.y>(0):
+                player_pos.y -= speed * dt / (player_size/10)
+                if player_size > 5:
+                    player_size -= 0.05*(player_size-5)*dt*(speed/200)
+            else:
+                player_pos.y =+ (screen_y)
+                if player_size > 5:
+                    player_size -= 0.05*(player_size-5)*dt*(speed/200)
+        if (keys[pygame.K_s] or keys[pygame.K_DOWN]): 
+            if player_pos.y<(screen_y):
+                player_pos.y += speed * dt / (player_size/10)
+                if player_size > 5:
+                    player_size -= 0.05*(player_size-5)*dt*(speed/200)
+            else:
+                player_pos.y =+ 0
+                if player_size > 5:
+                    player_size -= 0.05*(player_size-5)*dt*(speed/200)
+        if (keys[pygame.K_a] or keys[pygame.K_LEFT]): 
+            if player_pos.x>(0):
+                player_pos.x -= speed * dt / (player_size/10)
+                if player_size > 5:
+                    player_size -= 0.05*(player_size-5)*dt*(speed/200)
+            else: 
+                player_pos.x =+ (screen_x)
+                if player_size > 5:
+                    player_size -= 0.05*(player_size-5)*dt*(speed/200)
+        if (keys[pygame.K_d] or keys[pygame.K_RIGHT]): 
+            if player_pos.x<(screen_x):
+                player_pos.x += speed * dt / (player_size/10)
+                if player_size > 5:
+                    player_size -= 0.05*(player_size-5)*dt*(speed/200)
+            else:        
+                player_pos.x =+ 0
+                if player_size > 5:
+                    player_size -= 0.05*(player_size-5)*dt*(speed/200)
         #slowdown mechanic for when you go too fast
         if keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT]):
-            speed =+ 100
+            speed =+ (max_speed/3)
         if not (keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT])):  
-            speed =+ 200
+            speed =+ max_speed
         #reset mechanic
         if keys[pygame.K_r]:
             score=+0
@@ -184,9 +188,9 @@ while running:
             elif chance == 1:
                 score -= round(player_size*2)
             elif chance == 2:
-                score += (score*player_size/10)
+                score += round(score*player_size/10)
             elif chance == 3:
-                score -= round(score*0.7)
+                score -= round(score*0.5)
             elif chance == 4:
                 player_size =+ 25
             elif chance == 5:
