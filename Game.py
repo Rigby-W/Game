@@ -71,9 +71,13 @@ while running:
         title_text="Orbs and Apples"
         title_font_x,title_font_y=title_font.size(title_text)
         title_surface=title_font.render(title_text, True, (175, 75, 175))
+        hint_text="Hint"
+        hint_font_x,hint_font_y=font.size(hint_text)
+        hint_surface=font.render(hint_text, True, (100, 75, 75))
         screen.fill((0, 0, 100))
         screen.blit(start_surface, ((screen_x/2-start_font_x/2), (screen_y/2-start_font_y/2)))
         screen.blit(title_surface, ((screen_x/2-title_font_x/2), (screen_y/4-title_font_y/2)))
+        screen.blit(hint_surface, ((45), (45)))
         pygame.draw.circle(screen, (100, 100, 100), (screen_x-70,70), 25)
         mouse=pygame.mouse.get_pressed(num_buttons=3)
         for event in pygame.event.get():
@@ -84,7 +88,7 @@ while running:
             game = 1
             t1=time.time()
             t0 =+ t1
-        if keys[pygame.K_ESCAPE]:
+        if (mouse_pos_x<(45+hint_font_x) and mouse_pos_x>(45) and mouse_pos_y<(45+hint_font_y) and mouse_pos_y>(45) and mouse[0]):
             game = 2
         if (mouse_pos_x>(screen_x-95) and mouse_pos_x<(screen_x-45) and mouse_pos_y<(95) and mouse_pos_y>(45) and mouse[0]):
             game = 3
@@ -220,7 +224,7 @@ while running:
         dt = clock.tick(60) / 1000
     if game == 2:
         keys = pygame.key.get_pressed()
-        start_text="Press Space to resume the game"
+        start_text="Press Escape to Exit to Main Menu"
         line_1_text="Red Apple: adds score based on size and increases size"
         line_2_text="Green Apple: 1.5x score and lowers size if size is more than or at 15"
         line_3_text="Purple Apple: does a random effect"
@@ -266,11 +270,11 @@ while running:
                 running = False
         pygame.display.flip()
         #shifting the screens
-        if keys[pygame.K_SPACE]:
-            game = 1
+        if keys[pygame.K_ESCAPE]:
+            game = 0
     if game==3:
         screen.fill((0, 0, 100))
-        line_1_text="TEST"
+        line_1_text="Press Escape to Exit to Main Menu"
         line_1_x,line_1_y=font.size(line_1_text)
         line_1_surface=font.render(line_1_text, True, (200, 200, 200))
         screen.blit(line_1_surface, ((screen_x/2-line_1_x/2), (screen_y/4+(30*1)-line_1_y/2)))
@@ -279,8 +283,6 @@ while running:
                 running = False
         pygame.display.flip()
         #shifting the screens
-        if keys[pygame.K_SPACE]:
-            game = 1
-            t1=time.time()
-            t0 =+ t1
+        if keys[pygame.K_ESCAPE]:
+            game = 0
 pygame.quit()
