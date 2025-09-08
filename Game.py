@@ -302,7 +302,7 @@ while running:
         if mouse_pos_x<=(screen_x/2-speed_2_x/2+70) and mouse_pos_x>=(screen_x/2-speed_2_x/2) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
             max_speed=200
         if mouse_pos_x<=(screen_x/2-speed_3_x/2+120) and mouse_pos_x>=(screen_x/2-speed_3_x/2+80) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
-            max_speed=300
+            max_speed=400
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
