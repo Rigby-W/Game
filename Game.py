@@ -297,6 +297,22 @@ while running:
         speed_3_x,speed_3_y=font.size(speed_3_text)
         speed_3_surface=font.render(speed_3_text, True, (200, 200, 200))
         screen.blit(speed_3_surface, ((screen_x/2-speed_3_x/2+80), (screen_y/4+(30*2)-speed_3_y/2)))
+        line_3_text=f"Size: X={screen_x} Y={screen_y}"
+        line_3_x,line_3_y=font.size(line_3_text)
+        line_3_surface=font.render(line_3_text, True, (200, 200, 200))
+        screen.blit(line_3_surface, ((screen_x/2-line_3_x/2), (screen_y/4+(30*3)-line_3_y/2)))
+        size_1_text="Small"
+        size_1_x,size_1_y=font.size(size_1_text)
+        size_1_surface=font.render(size_1_text, True, (200, 200, 200))
+        screen.blit(size_1_surface, ((screen_x/2-size_1_x/2-80), (screen_y/4+(30*4)-size_1_y/2)))
+        size_2_text="Medium"
+        size_2_x,size_2_y=font.size(size_2_text)
+        size_2_surface=font.render(size_2_text, True, (200, 200, 200))
+        screen.blit(size_2_surface, ((screen_x/2-size_2_x/2), (screen_y/4+(30*4)-size_2_y/2)))
+        size_3_text="Large"
+        size_3_x,size_3_y=font.size(size_3_text)
+        size_3_surface=font.render(size_3_text, True, (200, 200, 200))
+        screen.blit(size_3_surface, ((screen_x/2-size_3_x/2+80), (screen_y/4+(30*4)-size_3_y/2)))
         if mouse_pos_x<=(screen_x/2-speed_1_x/2-40) and mouse_pos_x>=(screen_x/2-speed_1_x/2-80) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
             max_speed=100
         if mouse_pos_x<=(screen_x/2-speed_2_x/2+70) and mouse_pos_x>=(screen_x/2-speed_2_x/2) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
