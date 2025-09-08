@@ -273,11 +273,36 @@ while running:
         if keys[pygame.K_ESCAPE]:
             game = 0
     if game==3:
+        keys = pygame.key.get_pressed()
+        mouse_pos_x, mouse_pos_y=pygame.mouse.get_pos()
+        mouse=pygame.mouse.get_pressed(num_buttons=3)
         screen.fill((0, 0, 100))
         line_1_text="Press Escape to Exit to Main Menu"
         line_1_x,line_1_y=font.size(line_1_text)
         line_1_surface=font.render(line_1_text, True, (200, 200, 200))
-        screen.blit(line_1_surface, ((screen_x/2-line_1_x/2), (screen_y/4+(30*1)-line_1_y/2)))
+        screen.blit(line_1_surface, ((screen_x/2-line_1_x/2), (screen_y/8+(30*1)-line_1_y/2)))
+        line_2_text=f"Speed={max_speed}"
+        line_2_x,line_2_y=font.size(line_2_text)
+        line_2_surface=font.render(line_2_text, True, (200, 200, 200))
+        screen.blit(line_2_surface, ((screen_x/2-line_2_x/2), (screen_y/4+(30*1)-line_2_y/2)))
+        speed_1_text="Slow"
+        speed_1_x,speed_1_y=font.size(speed_1_text)
+        speed_1_surface=font.render(speed_1_text, True, (200, 200, 200))
+        screen.blit(speed_1_surface, ((screen_x/2-speed_1_x/2-80), (screen_y/4+(30*2)-speed_1_y/2)))
+        speed_2_text="Medium"
+        speed_2_x,speed_2_y=font.size(speed_2_text)
+        speed_2_surface=font.render(speed_2_text, True, (200, 200, 200))
+        screen.blit(speed_2_surface, ((screen_x/2-speed_2_x/2), (screen_y/4+(30*2)-speed_2_y/2)))
+        speed_3_text="Fast"
+        speed_3_x,speed_3_y=font.size(speed_3_text)
+        speed_3_surface=font.render(speed_3_text, True, (200, 200, 200))
+        screen.blit(speed_3_surface, ((screen_x/2-speed_3_x/2+80), (screen_y/4+(30*2)-speed_3_y/2)))
+        if mouse_pos_x<=(screen_x/2-speed_1_x/2-40) and mouse_pos_x>=(screen_x/2-speed_1_x/2-80) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
+            max_speed=100
+        if mouse_pos_x<=(screen_x/2-speed_2_x/2+70) and mouse_pos_x>=(screen_x/2-speed_2_x/2) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
+            max_speed=200
+        if mouse_pos_x<=(screen_x/2-speed_3_x/2+120) and mouse_pos_x>=(screen_x/2-speed_3_x/2+80) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
+            max_speed=300
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
