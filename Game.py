@@ -78,7 +78,7 @@ while running:
         screen.blit(start_surface, ((screen_x/2-start_font_x/2), (screen_y/2-start_font_y/2)))
         screen.blit(title_surface, ((screen_x/2-title_font_x/2), (screen_y/4-title_font_y/2)))
         screen.blit(hint_surface, ((45), (45)))
-        pygame.draw.circle(screen, (100, 100, 100), (screen_x-70,70), 25)
+        pygame.draw.circle(screen, (100, 100, 100), (screen_x/2,screen_y/3+20), 25)
         mouse=pygame.mouse.get_pressed(num_buttons=3)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -88,9 +88,12 @@ while running:
             game = 1
             t1=time.time()
             t0 =+ t1
+            apple_r.eat_apple()
+            apple_g.eat_apple()
+            apple_p.eat_apple()
         if (mouse_pos_x<(45+hint_font_x) and mouse_pos_x>(45) and mouse_pos_y<(45+hint_font_y) and mouse_pos_y>(45) and mouse[0]):
             game = 2
-        if (mouse_pos_x>(screen_x-95) and mouse_pos_x<(screen_x-45) and mouse_pos_y<(95) and mouse_pos_y>(45) and mouse[0]):
+        if (mouse_pos_x>(screen_x/2-25) and mouse_pos_x<(screen_x/2+25) and mouse_pos_y>(screen_y/3-5) and mouse_pos_y<(screen_y/3+45) and mouse[0]):
             game = 3
             t1=time.time()
             t0 =+ t1
@@ -319,6 +322,18 @@ while running:
             max_speed=200
         if mouse_pos_x<=(screen_x/2-speed_3_x/2+120) and mouse_pos_x>=(screen_x/2-speed_3_x/2+80) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
             max_speed=400
+        if mouse_pos_x<=(screen_x/2-speed_1_x/2-35) and mouse_pos_x>=(screen_x/2-speed_1_x/2-85) and mouse_pos_y>=(screen_y/4+(30*4)-size_2_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-size_2_y/2+20) and mouse[0]:
+            screen_x=750
+            screen_y=600
+            pygame.display.set_mode((screen_x, screen_y))
+        if mouse_pos_x<=(screen_x/2-speed_2_x/2+70) and mouse_pos_x>=(screen_x/2-speed_2_x/2) and mouse_pos_y>=(screen_y/4+(30*4)-size_2_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-size_2_y/2+20) and mouse[0]:
+            screen_x=1280
+            screen_y=720
+            pygame.display.set_mode((screen_x, screen_y))
+        if mouse_pos_x<=(screen_x/2-speed_3_x/2+125) and mouse_pos_x>=(screen_x/2-speed_3_x/2+75) and mouse_pos_y>=(screen_y/4+(30*4)-size_2_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-size_2_y/2+20) and mouse[0]:
+            screen_x=1920
+            screen_y=1080
+            pygame.display.set_mode((screen_x, screen_y))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
