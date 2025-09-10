@@ -4,6 +4,8 @@ import time
 pygame.font.init()
 font = pygame.font.SysFont("Arial", 25)
 pygame.init()
+screen_x_speed=1280
+screen_y_speed=720
 screen_x=1280
 screen_y=720
 clock = pygame.time.Clock()
@@ -141,7 +143,7 @@ while running:
         #movement
         if (keys[pygame.K_w]  or keys[pygame.K_UP]):
             if player_pos.y>(0):
-                player_pos.y -= speed * dt / (player_size/10)
+                player_pos.y -= speed * dt / (player_size/10) * (screen_y/screen_y_speed)
                 if player_size > 5:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
             else:
@@ -150,7 +152,7 @@ while running:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_s] or keys[pygame.K_DOWN]): 
             if player_pos.y<(screen_y):
-                player_pos.y += speed * dt / (player_size/10)
+                player_pos.y += speed * dt / (player_size/10) * (screen_y/screen_y_speed)
                 if player_size > 5:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
             else:
@@ -159,7 +161,7 @@ while running:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_a] or keys[pygame.K_LEFT]): 
             if player_pos.x>(0):
-                player_pos.x -= speed * dt / (player_size/10)
+                player_pos.x -= speed * dt / (player_size/10) * (screen_x/screen_x_speed)
                 if player_size > 5:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
             else: 
@@ -168,7 +170,7 @@ while running:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_d] or keys[pygame.K_RIGHT]): 
             if player_pos.x<(screen_x):
-                player_pos.x += speed * dt / (player_size/10)
+                player_pos.x += speed * dt / (player_size/10) * (screen_x/screen_x_speed)
                 if player_size > 5:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
             else:        
