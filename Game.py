@@ -204,9 +204,10 @@ while running:
         #reset mechanic
         if keys[pygame.K_r]:
             score=+0
-            player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+            player_pos=+pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
             player_size =+ 10
             t0 = t1
+            player.__init__()
         #screen shifting
         if keys[pygame.K_ESCAPE]:
             game = 0
