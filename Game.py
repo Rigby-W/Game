@@ -61,9 +61,14 @@ class Player(object):
     def __init__(self):
         self.player_pos=player_pos 
         self.player_size=player_size
-    def draw(self):
+    def draw_skin1(self):
         pygame.draw.circle(screen, (120,120,120), self.player_pos, player_size)
         pygame.draw.circle(screen, (250,250,250), self.player_pos, player_size/1.5)
+    def draw_skin2(self):
+        pygame.draw.circle(screen, "white", self.player_pos, player_size)
+    def draw_skin3(self):
+        pygame.draw.circle(screen, (150,0,0), self.player_pos, player_size)
+        pygame.draw.circle(screen, (0,0,0), self.player_pos, player_size/1.5)
 apple_p=Apple_Purple()
 apple_r=Apple_Red()
 apple_g=Apple_Green()
@@ -145,7 +150,12 @@ while running:
         screen.blit(score_surface, ((20), (45)))
         screen.blit(highscore_surface, ((20), (70)))
         screen.blit(size_surface, ((20), (95)))
-        player.draw()
+        if skin=="Normal":
+          player.draw_skin1()
+        elif skin=="Classic":
+          player.draw_skin2()
+        elif skin=="Dark":
+          player.draw_skin3()
         apple_r.draw_apple()
         apple_g.draw_apple()
         apple_p.draw_apple()
@@ -342,10 +352,24 @@ while running:
         right_arrow_x,right_arrow_y=base_font.size(right_arrow_text)
         right_arrow_surface=base_font.render(right_arrow_text, True, (200, 200, 200))
         screen.blit(right_arrow_surface, ((screen_x/2-right_arrow_x/2+80), (screen_y/4+(30*4)-right_arrow_y/2)))
-        if mouse_pos_x<=(screen_x/2-left_arrow_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_x/2-80) and mouse_pos_y>=(screen_y/4+(30*4)-left_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-left_arrow_y/2+20) and mouse[0]:
-            max_speed=100
-        if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_y/2+20) and mouse[0]:
-            max_speed=400
+        if mouse_pos_x<=(screen_x/2-left_arrow_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_x/2-80) and mouse_pos_y>=(screen_y/4+(30*4)-left_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-left_arrow_y/2+20) and mouse[0] and not_press == True:
+            not_press = False
+            if skin=="Normal":
+              skin="Normal"
+            elif skin=="Classic":
+              skin="Normal"
+            elif skin=="Dark":
+              skin="Classic"
+        if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_y/2+20) and mouse[0] and not_press == True:
+            not_press = False
+            if skin=="Normal":
+              skin="Classic"
+            elif skin=="Classic":
+              skin="Dark"
+            elif skin=="Dark":
+              skin="Dark"
+        if not mouse[0]:
+          not_press = True
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
