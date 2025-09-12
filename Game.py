@@ -2,7 +2,7 @@ import pygame
 import random
 import time
 pygame.font.init()
-font = pygame.font.SysFont("Arial", 25)
+base_font = pygame.font.SysFont("Arial", 25)
 pygame.init()
 screen_x_speed=1280
 screen_y_speed=720
@@ -13,10 +13,11 @@ screen = pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
 t0 = time.time()
 running = True
 dt = 0
-player_size=10
 score=0
 highscore=0
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+player_size=10
+player_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+skin="Normal"
 class Apple_Red(object):
     def eat_apple(self):
         self.eaten = True
@@ -56,9 +57,17 @@ class Apple_Purple(object):
         self.apple_pos_y=random.randint(8,(screen_y-8))
     def draw_apple(self):
         pygame.draw.circle(screen, "purple", (self.apple_pos_x,self.apple_pos_y) ,10)
+class Player(object):
+    def __init__(self):
+        self.player_pos=player_pos 
+        self.player_size=player_size
+    def draw(self):
+        pygame.draw.circle(screen, (120,120,120), self.player_pos, player_size)
+        pygame.draw.circle(screen, (250,250,250), self.player_pos, player_size/1.5)
 apple_p=Apple_Purple()
 apple_r=Apple_Red()
 apple_g=Apple_Green()
+player=Player()
 max_speed=200
 game=0
 while running:
@@ -68,14 +77,14 @@ while running:
         title_font = pygame.font.SysFont("Arial", title_font_size)
         keys = pygame.key.get_pressed()
         start_text="Press Space to start"
-        start_font_x,start_font_y=font.size(start_text)
-        start_surface=font.render(start_text, True, (200, 200, 200))
+        start_font_x,start_font_y=base_font.size(start_text)
+        start_surface=base_font.render(start_text, True, (200, 200, 200))
         title_text="Orbs and Apples"
         title_font_x,title_font_y=title_font.size(title_text)
         title_surface=title_font.render(title_text, True, (175, 75, 175))
         hint_text="Hint"
-        hint_font_x,hint_font_y=font.size(hint_text)
-        hint_surface=font.render(hint_text, True, (100, 75, 75))
+        hint_font_x,hint_font_y=base_font.size(hint_text)
+        hint_surface=base_font.render(hint_text, True, (100, 75, 75))
         screen.fill((0, 0, 100))
         screen.blit(start_surface, ((screen_x/2-start_font_x/2), (screen_y/2-start_font_y/2)))
         screen.blit(title_surface, ((screen_x/2-title_font_x/2), (screen_y/4-title_font_y/2)))
@@ -104,6 +113,7 @@ while running:
             t0 =+ t1
         pygame.display.flip()
     if game==1:
+        player_size==10
         keys = pygame.key.get_pressed()
         t1=time.time()
         game_time = t1-t0
@@ -113,17 +123,16 @@ while running:
             highscore =+ score
         else:
             highscore += 0
-        player_size==10
         score==0
         highscore==0
         if game_time_sec < 10:
-            timer_surface = font.render(f"Time: {game_time_min}:0{game_time_sec}", True, (200, 200, 200))
+            timer_surface =base_font.render(f"Time: {game_time_min}:0{game_time_sec}", True, (200, 200, 200))
         else:
-            timer_surface = font.render(f"Time: {game_time_min}:{game_time_sec}", True, (200, 200, 200))
+            timer_surface =base_font.render(f"Time: {game_time_min}:{game_time_sec}", True, (200, 200, 200))
         player_size_rounded = round(player_size)
-        size_surface = font.render(f"Size: {player_size_rounded}", True, (200, 200, 200))
-        highscore_surface = font.render(f"Highscore: {highscore}", True, (200, 200, 200))
-        score_surface = font.render(f"Score: {score}", True, (200, 200, 200))
+        size_surface =base_font.render(f"Size: {player_size_rounded}", True, (200, 200, 200))
+        highscore_surface =base_font.render(f"Highscore: {highscore}", True, (200, 200, 200))
+        score_surface =base_font.render(f"Score: {score}", True, (200, 200, 200))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -136,7 +145,7 @@ while running:
         screen.blit(score_surface, ((20), (45)))
         screen.blit(highscore_surface, ((20), (70)))
         screen.blit(size_surface, ((20), (95)))
-        pygame.draw.circle(screen, "white", player_pos, player_size)
+        player.draw()
         apple_r.draw_apple()
         apple_g.draw_apple()
         apple_p.draw_apple()
@@ -245,26 +254,26 @@ while running:
         line_7_text="More size = More points"
         line_8_text="Less size = More speed"
         line_9_text="Get as many points as you can and aim for a high score"
-        start_font_x,start_font_y=font.size(start_text)
-        line_1_x,line_1_y=font.size(line_1_text)
-        line_2_x,line_2_y=font.size(line_2_text)
-        line_3_x,line_3_y=font.size(line_3_text)
-        line_4_x,line_4_y=font.size(line_4_text)
-        line_5_x,line_5_y=font.size(line_5_text)
-        line_6_x,line_6_y=font.size(line_6_text)
-        line_7_x,line_7_y=font.size(line_7_text)
-        line_8_x,line_8_y=font.size(line_8_text)
-        line_9_x,line_9_y=font.size(line_9_text)
-        start_surface=font.render(start_text, True, (200, 200, 200))
-        line_1_surface=font.render(line_1_text, True, (200, 200, 200))
-        line_2_surface=font.render(line_2_text, True, (200, 200, 200))
-        line_3_surface=font.render(line_3_text, True, (200, 200, 200))
-        line_4_surface=font.render(line_4_text, True, (200, 200, 200))
-        line_5_surface=font.render(line_5_text, True, (200, 200, 200))
-        line_6_surface=font.render(line_6_text, True, (200, 200, 200))
-        line_7_surface=font.render(line_7_text, True, (200, 200, 200))
-        line_8_surface=font.render(line_8_text, True, (200, 200, 200))
-        line_9_surface=font.render(line_9_text, True, (200, 200, 200))
+        start_font_x,start_font_y=base_font.size(start_text)
+        line_1_x,line_1_y=base_font.size(line_1_text)
+        line_2_x,line_2_y=base_font.size(line_2_text)
+        line_3_x,line_3_y=base_font.size(line_3_text)
+        line_4_x,line_4_y=base_font.size(line_4_text)
+        line_5_x,line_5_y=base_font.size(line_5_text)
+        line_6_x,line_6_y=base_font.size(line_6_text)
+        line_7_x,line_7_y=base_font.size(line_7_text)
+        line_8_x,line_8_y=base_font.size(line_8_text)
+        line_9_x,line_9_y=base_font.size(line_9_text)
+        start_surface=base_font.render(start_text, True, (200, 200, 200))
+        line_1_surface=base_font.render(line_1_text, True, (200, 200, 200))
+        line_2_surface=base_font.render(line_2_text, True, (200, 200, 200))
+        line_3_surface=base_font.render(line_3_text, True, (200, 200, 200))
+        line_4_surface=base_font.render(line_4_text, True, (200, 200, 200))
+        line_5_surface=base_font.render(line_5_text, True, (200, 200, 200))
+        line_6_surface=base_font.render(line_6_text, True, (200, 200, 200))
+        line_7_surface=base_font.render(line_7_text, True, (200, 200, 200))
+        line_8_surface=base_font.render(line_8_text, True, (200, 200, 200))
+        line_9_surface=base_font.render(line_9_text, True, (200, 200, 200))
         screen.fill((0, 0, 100))
         screen.blit(start_surface, ((screen_x/2-start_font_x/2), (screen_y/8-start_font_y/2)))
         screen.blit(line_1_surface, ((screen_x/2-line_1_x/2), (screen_y/4+(30*1)-line_1_y/2)))
@@ -292,30 +301,50 @@ while running:
         mouse=pygame.mouse.get_pressed(num_buttons=3)
         screen.fill((0, 0, 100))
         line_1_text="Press Escape to Exit to Main Menu"
-        line_1_x,line_1_y=font.size(line_1_text)
-        line_1_surface=font.render(line_1_text, True, (200, 200, 200))
+        line_1_x,line_1_y=base_font.size(line_1_text)
+        line_1_surface=base_font.render(line_1_text, True, (200, 200, 200))
         screen.blit(line_1_surface, ((screen_x/2-line_1_x/2), (screen_y/8+(30*1)-line_1_y/2)))
         line_2_text=f"Speed={max_speed}"
-        line_2_x,line_2_y=font.size(line_2_text)
-        line_2_surface=font.render(line_2_text, True, (200, 200, 200))
+        line_2_x,line_2_y=base_font.size(line_2_text)
+        line_2_surface=base_font.render(line_2_text, True, (200, 200, 200))
         screen.blit(line_2_surface, ((screen_x/2-line_2_x/2), (screen_y/4+(30*1)-line_2_y/2)))
         speed_1_text="Slow"
-        speed_1_x,speed_1_y=font.size(speed_1_text)
-        speed_1_surface=font.render(speed_1_text, True, (200, 200, 200))
+        speed_1_x,speed_1_y=base_font.size(speed_1_text)
+        speed_1_surface=base_font.render(speed_1_text, True, (200, 200, 200))
         screen.blit(speed_1_surface, ((screen_x/2-speed_1_x/2-80), (screen_y/4+(30*2)-speed_1_y/2)))
         speed_2_text="Medium"
-        speed_2_x,speed_2_y=font.size(speed_2_text)
-        speed_2_surface=font.render(speed_2_text, True, (200, 200, 200))
+        speed_2_x,speed_2_y=base_font.size(speed_2_text)
+        speed_2_surface=base_font.render(speed_2_text, True, (200, 200, 200))
         screen.blit(speed_2_surface, ((screen_x/2-speed_2_x/2), (screen_y/4+(30*2)-speed_2_y/2)))
         speed_3_text="Fast"
-        speed_3_x,speed_3_y=font.size(speed_3_text)
-        speed_3_surface=font.render(speed_3_text, True, (200, 200, 200))
+        speed_3_x,speed_3_y=base_font.size(speed_3_text)
+        speed_3_surface=base_font.render(speed_3_text, True, (200, 200, 200))
         screen.blit(speed_3_surface, ((screen_x/2-speed_3_x/2+80), (screen_y/4+(30*2)-speed_3_y/2)))
         if mouse_pos_x<=(screen_x/2-speed_1_x/2-40) and mouse_pos_x>=(screen_x/2-speed_1_x/2-80) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
             max_speed=100
         if mouse_pos_x<=(screen_x/2-speed_2_x/2+70) and mouse_pos_x>=(screen_x/2-speed_2_x/2) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
             max_speed=200
         if mouse_pos_x<=(screen_x/2-speed_3_x/2+120) and mouse_pos_x>=(screen_x/2-speed_3_x/2+80) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
+            max_speed=400
+        line_3_text=f"Skin Selector"
+        line_3_x,line_3_y=base_font.size(line_3_text)
+        line_3_surface=base_font.render(line_3_text, True, (200, 200, 200))
+        screen.blit(line_3_surface, ((screen_x/2-line_3_x/2), (screen_y/4+(30*3)-line_3_y/2)))
+        left_arrow_text="<"
+        left_arrow_x,left_arrow_y=base_font.size(left_arrow_text)
+        left_arrow_surface=base_font.render(left_arrow_text, True, (200, 200, 200))
+        screen.blit(left_arrow_surface, ((screen_x/2-left_arrow_x/2-80), (screen_y/4+(30*4)-left_arrow_y/2)))
+        skin_text=f"{skin}"
+        skin_x,skin_y=base_font.size(skin_text)
+        skin_surface=base_font.render(skin_text, True, (200, 200, 200))
+        screen.blit(skin_surface, ((screen_x/2-skin_x/2), (screen_y/4+(30*4)-skin_y/2)))
+        right_arrow_text=">"
+        right_arrow_x,right_arrow_y=base_font.size(right_arrow_text)
+        right_arrow_surface=base_font.render(right_arrow_text, True, (200, 200, 200))
+        screen.blit(right_arrow_surface, ((screen_x/2-right_arrow_x/2+80), (screen_y/4+(30*4)-right_arrow_y/2)))
+        if mouse_pos_x<=(screen_x/2-left_arrow_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_x/2-80) and mouse_pos_y>=(screen_y/4+(30*4)-left_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-left_arrow_y/2+20) and mouse[0]:
+            max_speed=100
+        if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_y/2+20) and mouse[0]:
             max_speed=400
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
