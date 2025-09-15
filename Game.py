@@ -326,6 +326,8 @@ while running:
         if keys[pygame.K_ESCAPE]:
             game = 0
     if game==3:
+        player_pos==(screen_x/2, screen_y/8+(30*4.5))
+        player_size=+30
         keys = pygame.key.get_pressed()
         mouse_pos_x, mouse_pos_y=pygame.mouse.get_pos()
         mouse=pygame.mouse.get_pressed(num_buttons=3)
@@ -385,7 +387,7 @@ while running:
             elif skin=="Egg":
                 skin="Kevin"
             elif skin=="Mentor":
-                skin=="Egg"
+                skin="Egg"
         if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_y/2+20) and mouse[0] and not_press == True:
             not_press = False
             if skin=="Normal":
@@ -402,6 +404,18 @@ while running:
                 skin="Mentor"
         if not mouse[0]:
             not_press = True
+        if skin=="Normal":
+            player.draw_skin1()
+        elif skin=="Classic":
+            player.draw_skin2()
+        elif skin=="Dark":
+            player.draw_skin3()
+        elif skin=="Kevin":
+            player.draw_skin4()
+        elif skin=="Egg":
+            player.draw_skin5()
+        elif skin=="Mentor":
+            player.draw_skin6()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -412,4 +426,5 @@ while running:
         #shifting the screens
         if keys[pygame.K_ESCAPE]:
             game = 0
+            player_size=+10
 pygame.quit()
