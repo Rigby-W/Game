@@ -2,30 +2,31 @@ import pygame
 import random
 import time
 pygame.font.init()
-base_font = pygame.font.SysFont("Arial", 25)
+base_font=pygame.font.SysFont("Arial", 25)
 pygame.init()
 screen_x_speed=1280
 screen_y_speed=720
 screen_x=1280
 screen_y=720
-clock = pygame.time.Clock()
-screen = pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
-t0 = time.time()
-running = True
-dt = 0
+clock=pygame.time.Clock()
+screen=pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
+t0=time.time()
+running=True
+dt=0
 score=0
 highscore=0
 player_size=10
+display_size=25
 player_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-display_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+display_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 1.9)
 skin="Normal"
 class Apple_Red(object):
     def eat_apple(self):
-        self.eaten = True
+        self.eaten=True
         self.spawn_apple()
-        self.eaten = False
+        self.eaten=False
     def __init__(self):
-        self.eaten = False
+        self.eaten=False
         self.spawn_apple()
     def spawn_apple(self):
         self.apple_pos_x=random.randint(8,(screen_x-8))
@@ -34,11 +35,11 @@ class Apple_Red(object):
         pygame.draw.circle(screen, "red", (self.apple_pos_x,self.apple_pos_y) ,8)
 class Apple_Green(object):
     def eat_apple(self):
-        self.eaten = True
+        self.eaten=True
         self.spawn_apple()
-        self.eaten = False
+        self.eaten=False
     def __init__(self):
-        self.eaten = False
+        self.eaten=False
         self.spawn_apple()
     def spawn_apple(self):
         self.apple_pos_x=random.randint(8,(screen_x-8))
@@ -47,11 +48,11 @@ class Apple_Green(object):
         pygame.draw.circle(screen, "green", (self.apple_pos_x,self.apple_pos_y) ,12)
 class Apple_Purple(object):
     def eat_apple(self):
-        self.eaten = True
+        self.eaten=True
         self.spawn_apple()
-        self.eaten = False
+        self.eaten=False
     def __init__(self):
-        self.eaten = False
+        self.eaten=False
         self.spawn_apple()
     def spawn_apple(self):
         self.apple_pos_x=random.randint(8,(screen_x-8))
@@ -83,6 +84,9 @@ class Player(object):
         pygame.draw.circle(screen, (100,0,0), self.player_pos, player_size*0.75)
         pygame.draw.circle(screen, (0,0,100), self.player_pos, player_size*0.5)
         pygame.draw.circle(screen, (255, 120, 120), self.player_pos, player_size*0.25)
+    def draw_skin7(self):
+        pygame.draw.circle(screen, (255,255,0), self.player_pos, player_size)
+        pygame.draw.circle(screen, (0,0,0), self.player_pos, player_size/1.5)
 class Display_Player(object):
     def __init__(self):
         self.player_pos=display_pos
@@ -107,6 +111,9 @@ class Display_Player(object):
         pygame.draw.circle(screen, (100,0,0), self.player_pos, display_size*0.75)
         pygame.draw.circle(screen, (0,0,100), self.player_pos, display_size*0.5)
         pygame.draw.circle(screen, (255, 120, 120), self.player_pos, display_size*0.25)
+    def draw_skin7(self):
+        pygame.draw.circle(screen, (255,255,0), self.player_pos, display_size)
+        pygame.draw.circle(screen, (0,0,0), self.player_pos, display_size/1.5)
 apple_p=Apple_Purple()
 apple_r=Apple_Red()
 apple_g=Apple_Green()
@@ -117,9 +124,9 @@ game=0
 while running:
     if game==0:
         mouse_pos_x, mouse_pos_y=pygame.mouse.get_pos()
-        title_font_size = 60
-        title_font = pygame.font.SysFont("Arial", title_font_size)
-        keys = pygame.key.get_pressed()
+        title_font_size=60
+        title_font=pygame.font.SysFont("Arial", title_font_size)
+        keys=pygame.key.get_pressed()
         start_text="Press Space to start"
         start_font_x,start_font_y=base_font.size(start_text)
         start_surface=base_font.render(start_text, True, (200, 200, 200))
@@ -136,32 +143,32 @@ while running:
         pygame.draw.circle(screen, (100, 100, 100), (screen_x/2,screen_y/3+20), 25)
         mouse=pygame.mouse.get_pressed(num_buttons=3)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.VIDEORESIZE:
-                screen_x, screen_y = event.size
-                screen = pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
+            if event.type==pygame.QUIT:
+                running=False
+            elif event.type==pygame.VIDEORESIZE:
+                screen_x, screen_y=event.size
+                screen=pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
         #shifting the screens
         if keys[pygame.K_SPACE]:
-            game = 1
+            game=1
             t1=time.time()
             t0 =+ t1
             apple_r.eat_apple()
             apple_g.eat_apple()
             apple_p.eat_apple()
         if (mouse_pos_x<(45+hint_font_x) and mouse_pos_x>(45) and mouse_pos_y<(45+hint_font_y) and mouse_pos_y>(45) and mouse[0]):
-            game = 2
+            game=2
         if (mouse_pos_x>(screen_x/2-25) and mouse_pos_x<(screen_x/2+25) and mouse_pos_y>(screen_y/3-5) and mouse_pos_y<(screen_y/3+45) and mouse[0]):
-            game = 3
+            game=3
             t1=time.time()
             t0 =+ t1
         pygame.display.flip()
     if game==1:
-        keys = pygame.key.get_pressed()
+        keys=pygame.key.get_pressed()
         t1=time.time()
-        game_time = t1-t0
-        game_time_min = round(game_time//60)
-        game_time_sec = round(game_time%60)
+        game_time=t1-t0
+        game_time_min=round(game_time//60)
+        game_time_sec=round(game_time%60)
         if highscore < score:
             highscore =+ score
         else:
@@ -172,16 +179,16 @@ while running:
             timer_surface =base_font.render(f"Time: {game_time_min}:0{game_time_sec}", True, (200, 200, 200))
         else:
             timer_surface =base_font.render(f"Time: {game_time_min}:{game_time_sec}", True, (200, 200, 200))
-        player_size_rounded = round(player_size)
+        player_size_rounded=round(player_size)
         size_surface =base_font.render(f"Size: {player_size_rounded}", True, (200, 200, 200))
         highscore_surface =base_font.render(f"Highscore: {highscore}", True, (200, 200, 200))
         score_surface =base_font.render(f"Score: {score}", True, (200, 200, 200))
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.VIDEORESIZE:
-                screen_x, screen_y = event.size
-                screen = pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
+            if event.type==pygame.QUIT:
+                running=False
+            elif event.type==pygame.VIDEORESIZE:
+                screen_x, screen_y=event.size
+                screen=pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
         #fill the screen first before you put your objects in
         screen.fill((0, 0, 100))
         screen.blit(timer_surface, ((20), (20)))
@@ -200,6 +207,8 @@ while running:
             player.draw_skin5()
         elif skin=="Mentor":
             player.draw_skin6()
+        elif skin=="Eclipse":
+            player.draw_skin7()
         apple_r.draw_apple()
         apple_g.draw_apple()
         apple_p.draw_apple()
@@ -250,11 +259,11 @@ while running:
             score=+0
             player_pos=+pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
             player_size =+ 10
-            t0 = t1
+            t0=t1
             player.__init__()
         #screen shifting
         if keys[pygame.K_ESCAPE]:
-            game = 0
+            game=0
         #red apple being eaten
         if player_pos.x >= (apple_r.apple_pos_x-player_size) and player_pos.x <= (apple_r.apple_pos_x+player_size) and player_pos.y >= (apple_r.apple_pos_y-player_size) and player_pos.y <=(apple_r.apple_pos_y+player_size):
             score += round(player_size*1.5)
@@ -269,36 +278,36 @@ while running:
         if player_pos.x >= (apple_p.apple_pos_x-player_size) and player_pos.x <= (apple_p.apple_pos_x+player_size) and player_pos.y >= (apple_p.apple_pos_y-player_size) and player_pos.y <=(apple_p.apple_pos_y+player_size):
             #purple apple's "loot table" (a.k.a. what the apple does) 
             chance=random.randint(0,9)
-            if chance == 0:
+            if chance==0:
                 score += round(player_size*3)
-            elif chance == 1:
+            elif chance==1:
                 score -= round(player_size*2)
-            elif chance == 2:
+            elif chance==2:
                 score += round(score*player_size/10)
-            elif chance == 3:
+            elif chance==3:
                 score -= round(score*0.5)
-            elif chance == 4:
+            elif chance==4:
                 player_size =+ 25
-            elif chance == 5:
+            elif chance==5:
                 if player_size > 15:
                     player_size -= 10
                 else:
                     player_size =+ 5
-            elif chance == 6:
+            elif chance==6:
                 player_size += player_size
-            elif chance == 7:
+            elif chance==7:
                 score += 0
-            elif chance == 8:
+            elif chance==8:
                 apple_r.eat_apple()
                 apple_g.eat_apple()
-            elif chance == 9:
-                player_pos.x = random.randint(round(player_size), round(screen_x-player_size))
-                player_pos.y = random.randint(round(player_size), round(screen_y-player_size))
+            elif chance==9:
+                player_pos.x=random.randint(round(player_size), round(screen_x-player_size))
+                player_pos.y=random.randint(round(player_size), round(screen_y-player_size))
             apple_p.eat_apple()
         pygame.display.flip()
-        dt = clock.tick(60) / 1000
-    if game == 2:
-        keys = pygame.key.get_pressed()
+        dt=clock.tick(60) / 1000
+    if game==2:
+        keys=pygame.key.get_pressed()
         start_text="Press Escape to Exit to Main Menu"
         line_1_text="Red Apple: adds score based on size and increases size"
         line_2_text="Green Apple: 1.5x score and lowers size if size is more than or at 15"
@@ -306,8 +315,8 @@ while running:
         line_4_text="Arrows or WASD to move"
         line_5_text="Shift to Slowdown (doesnt slow the timer)"
         line_6_text="You lose size when you move"
-        line_7_text="More size = More points"
-        line_8_text="Less size = More speed"
+        line_7_text="More size=More points"
+        line_8_text="Less size=More speed"
         line_9_text="Get as many points as you can and aim for a high score"
         start_font_x,start_font_y=base_font.size(start_text)
         line_1_x,line_1_y=base_font.size(line_1_text)
@@ -341,19 +350,17 @@ while running:
         screen.blit(line_8_surface, ((screen_x/2-line_8_x/2), (screen_y/4+(30*8)-line_8_y/2)))
         screen.blit(line_9_surface, ((screen_x/2-line_9_x/2), (screen_y/4+(30*9)-line_9_y/2)))
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.VIDEORESIZE:
-                screen_x, screen_y = event.size
-                screen = pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
+            if event.type==pygame.QUIT:
+                running=False
+            elif event.type==pygame.VIDEORESIZE:
+                screen_x, screen_y=event.size
+                screen=pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
         pygame.display.flip()
         #shifting the screens
         if keys[pygame.K_ESCAPE]:
-            game = 0
+            game=0
     if game==3:
-        display_size=+30
-        display_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-        keys = pygame.key.get_pressed()
+        keys=pygame.key.get_pressed()
         mouse_pos_x, mouse_pos_y=pygame.mouse.get_pos()
         mouse=pygame.mouse.get_pressed(num_buttons=3)
         screen.fill((0, 0, 100))
@@ -399,8 +406,8 @@ while running:
         right_arrow_x,right_arrow_y=base_font.size(right_arrow_text)
         right_arrow_surface=base_font.render(right_arrow_text, True, (200, 200, 200))
         screen.blit(right_arrow_surface, ((screen_x/2-right_arrow_x/2+80), (screen_y/4+(30*4)-right_arrow_y/2)))
-        if mouse_pos_x<=(screen_x/2-left_arrow_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_x/2-80) and mouse_pos_y>=(screen_y/4+(30*4)-left_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-left_arrow_y/2+20) and mouse[0] and not_press == True:
-            not_press = False
+        if mouse_pos_x<=(screen_x/2-left_arrow_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_x/2-80) and mouse_pos_y>=(screen_y/4+(30*4)-left_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-left_arrow_y/2+20) and mouse[0] and not_press==True:
+            not_press=False
             if skin=="Normal":
                 skin="Normal"
             elif skin=="Classic":
@@ -413,8 +420,10 @@ while running:
                 skin="Kevin"
             elif skin=="Mentor":
                 skin="Egg"
-        if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_y/2+20) and mouse[0] and not_press == True:
-            not_press = False
+            elif skin=="Eclipse":
+                skin="Mentor"
+        if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_y/2+20) and mouse[0] and not_press==True:
+            not_press=False
             if skin=="Normal":
                 skin="Classic"
             elif skin=="Classic":
@@ -426,9 +435,11 @@ while running:
             elif skin=="Egg":
                 skin="Mentor"
             elif skin=="Mentor":
-                skin="Mentor"
+                skin="Eclipse"
+            elif skin=="Eclipse":
+                skin="Eclipse"
         if not mouse[0]:
-            not_press = True
+            not_press=True
         if skin=="Normal":
             display.draw_skin1()
         elif skin=="Classic":
@@ -441,12 +452,14 @@ while running:
             display.draw_skin5()
         elif skin=="Mentor":
             display.draw_skin6()
+        elif skin=="Eclipse":
+            display.draw_skin7()
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.VIDEORESIZE:
-                screen_x, screen_y = event.size
-                screen = pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
+            if event.type==pygame.QUIT:
+                running=False
+            elif event.type==pygame.VIDEORESIZE:
+                screen_x, screen_y=event.size
+                screen=pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
         pygame.display.flip()
         #shifting the screens
         if keys[pygame.K_ESCAPE]:
