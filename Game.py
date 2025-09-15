@@ -17,6 +17,7 @@ score=0
 highscore=0
 player_size=10
 player_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+display_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 skin="Normal"
 class Apple_Red(object):
     def eat_apple(self):
@@ -82,10 +83,35 @@ class Player(object):
         pygame.draw.circle(screen, (100,0,0), self.player_pos, player_size*0.75)
         pygame.draw.circle(screen, (0,0,100), self.player_pos, player_size*0.5)
         pygame.draw.circle(screen, (255, 120, 120), self.player_pos, player_size*0.25)
+class Display_Player(object):
+    def __init__(self):
+        self.player_pos=display_pos
+    def draw_skin1(self):
+        pygame.draw.circle(screen, (120,120,120), self.player_pos, display_size)
+        pygame.draw.circle(screen, (250,250,250), self.player_pos, display_size/1.5)
+    def draw_skin2(self):
+        pygame.draw.circle(screen, "white", self.player_pos, display_size)
+    def draw_skin3(self):
+        pygame.draw.circle(screen, (150,0,0), self.player_pos, display_size)
+        pygame.draw.circle(screen, (0,0,0), self.player_pos, display_size/1.5)
+    def draw_skin4(self):
+        pygame.draw.circle(screen, (50,50,255), self.player_pos, display_size)
+        pygame.draw.circle(screen, (255,255,255), self.player_pos, display_size/1.5)
+        pygame.draw.circle(screen, (255,153,10), self.player_pos, display_size/2.25)
+    def draw_skin5(self):
+        pygame.draw.circle(screen, (255,255,255), self.player_pos, display_size)
+        pygame.draw.circle(screen, (255,250,105), self.player_pos, display_size/1.5)
+        pygame.draw.circle(screen, (255,153,10), self.player_pos, display_size/2.25)
+    def draw_skin6(self):
+        pygame.draw.circle(screen, (170,250,255), self.player_pos, display_size)
+        pygame.draw.circle(screen, (100,0,0), self.player_pos, display_size*0.75)
+        pygame.draw.circle(screen, (0,0,100), self.player_pos, display_size*0.5)
+        pygame.draw.circle(screen, (255, 120, 120), self.player_pos, display_size*0.25)
 apple_p=Apple_Purple()
 apple_r=Apple_Red()
 apple_g=Apple_Green()
 player=Player()
+display=Display_Player()
 max_speed=200
 game=0
 while running:
@@ -131,7 +157,6 @@ while running:
             t0 =+ t1
         pygame.display.flip()
     if game==1:
-        player_size==10
         keys = pygame.key.get_pressed()
         t1=time.time()
         game_time = t1-t0
@@ -326,8 +351,8 @@ while running:
         if keys[pygame.K_ESCAPE]:
             game = 0
     if game==3:
-        player_pos==(screen_x/2, screen_y/8+(30*4.5))
-        player_size=+30
+        display_size=+30
+        display_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
         keys = pygame.key.get_pressed()
         mouse_pos_x, mouse_pos_y=pygame.mouse.get_pos()
         mouse=pygame.mouse.get_pressed(num_buttons=3)
@@ -405,17 +430,17 @@ while running:
         if not mouse[0]:
             not_press = True
         if skin=="Normal":
-            player.draw_skin1()
+            display.draw_skin1()
         elif skin=="Classic":
-            player.draw_skin2()
+            display.draw_skin2()
         elif skin=="Dark":
-            player.draw_skin3()
+            display.draw_skin3()
         elif skin=="Kevin":
-            player.draw_skin4()
+            display.draw_skin4()
         elif skin=="Egg":
-            player.draw_skin5()
+            display.draw_skin5()
         elif skin=="Mentor":
-            player.draw_skin6()
+            display.draw_skin6()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -425,6 +450,5 @@ while running:
         pygame.display.flip()
         #shifting the screens
         if keys[pygame.K_ESCAPE]:
-            game = 0
-            player_size=+10
+            game=0
 pygame.quit()
