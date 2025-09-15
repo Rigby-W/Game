@@ -77,6 +77,11 @@ class Player(object):
         pygame.draw.circle(screen, (255,255,255), self.player_pos, player_size)
         pygame.draw.circle(screen, (255,250,105), self.player_pos, player_size/1.5)
         pygame.draw.circle(screen, (255,153,10), self.player_pos, player_size/2.25)
+    def draw_skin6(self):
+        pygame.draw.circle(screen, (170,250,255), self.player_pos, player_size)
+        pygame.draw.circle(screen, (100,0,0), self.player_pos, player_size*0.75)
+        pygame.draw.circle(screen, (0,0,100), self.player_pos, player_size*0.5)
+        pygame.draw.circle(screen, (255, 120, 120), self.player_pos, player_size*0.25)
 apple_p=Apple_Purple()
 apple_r=Apple_Red()
 apple_g=Apple_Green()
@@ -168,6 +173,8 @@ while running:
             player.draw_skin4()
         elif skin=="Egg":
             player.draw_skin5()
+        elif skin=="Mentor":
+            player.draw_skin6()
         apple_r.draw_apple()
         apple_g.draw_apple()
         apple_p.draw_apple()
@@ -377,6 +384,8 @@ while running:
                 skin="Dark"
             elif skin=="Egg":
                 skin="Kevin"
+            elif skin=="Mentor":
+                skin=="Egg"
         if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_y/2+20) and mouse[0] and not_press == True:
             not_press = False
             if skin=="Normal":
@@ -388,7 +397,9 @@ while running:
             elif skin=="Kevin":
                 skin="Egg"
             elif skin=="Egg":
-                skin="Egg"
+                skin="Mentor"
+            elif skin=="Mentor":
+                skin="Mentor"
         if not mouse[0]:
             not_press = True
         for event in pygame.event.get():
