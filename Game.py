@@ -18,7 +18,7 @@ highscore=0
 player_size=10
 display_size=25
 player_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-display_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 1.9)
+display_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 skin="Normal"
 class Apple_Red(object):
     def eat_apple(self):
@@ -87,6 +87,9 @@ class Player(object):
     def draw_skin7(self):
         pygame.draw.circle(screen, (255,255,0), self.player_pos, player_size)
         pygame.draw.circle(screen, (0,0,0), self.player_pos, player_size/1.5)
+    def draw_skin8(self):
+        pygame.draw.circle(screen, (255,50,50), self.player_pos, player_size)
+        pygame.draw.circle(screen, (255,150,150), self.player_pos, player_size*0.9)
 class Display_Player(object):
     def __init__(self):
         self.player_pos=display_pos
@@ -114,6 +117,9 @@ class Display_Player(object):
     def draw_skin7(self):
         pygame.draw.circle(screen, (255,255,0), self.player_pos, display_size)
         pygame.draw.circle(screen, (0,0,0), self.player_pos, display_size/1.5)
+    def draw_skin8(self):
+        pygame.draw.circle(screen, (255,150,150), self.player_pos, display_size)
+        pygame.draw.circle(screen, (255,120,120), self.player_pos, display_size*0.9)
 apple_p=Apple_Purple()
 apple_r=Apple_Red()
 apple_g=Apple_Green()
@@ -209,6 +215,8 @@ while running:
             player.draw_skin6()
         elif skin=="Eclipse":
             player.draw_skin7()
+        elif skin=="Bubblegum":
+            player.draw_skin8()
         apple_r.draw_apple()
         apple_g.draw_apple()
         apple_p.draw_apple()
@@ -360,6 +368,30 @@ while running:
         if keys[pygame.K_ESCAPE]:
             game=0
     if game==3:
+        if skin=="Normal":
+            Ability="N/A"
+            Ability_Description="N/A"
+        elif skin=="Classic":
+            Ability="N/A"
+            Ability_Description="N/A"
+        elif skin=="Dark":
+            Ability="N/A"
+            Ability_Description="N/A"
+        elif skin=="Kevin":
+            Ability="N/A"
+            Ability_Description="N/A"
+        elif skin=="Egg":
+            Ability="N/A"
+            Ability_Description="N/A"
+        elif skin=="Mentor":
+            Ability="N/A"
+            Ability_Description="N/A"
+        elif skin=="Eclipse":
+            Ability="N/A"
+            Ability_Description="N/A"
+        elif skin=="Bubblegum":
+            Ability="N/A"
+            Ability_Description="N/A"
         keys=pygame.key.get_pressed()
         mouse_pos_x, mouse_pos_y=pygame.mouse.get_pos()
         mouse=pygame.mouse.get_pressed(num_buttons=3)
@@ -390,7 +422,7 @@ while running:
             max_speed=200
         if mouse_pos_x<=(screen_x/2-speed_3_x/2+120) and mouse_pos_x>=(screen_x/2-speed_3_x/2+80) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
             max_speed=400
-        line_3_text=f"Skin Selector"
+        line_3_text=f"Player Selector"
         line_3_x,line_3_y=base_font.size(line_3_text)
         line_3_surface=base_font.render(line_3_text, True, (200, 200, 200))
         screen.blit(line_3_surface, ((screen_x/2-line_3_x/2), (screen_y/4+(30*3)-line_3_y/2)))
@@ -406,6 +438,14 @@ while running:
         right_arrow_x,right_arrow_y=base_font.size(right_arrow_text)
         right_arrow_surface=base_font.render(right_arrow_text, True, (200, 200, 200))
         screen.blit(right_arrow_surface, ((screen_x/2-right_arrow_x/2+80), (screen_y/4+(30*4)-right_arrow_y/2)))
+        line_4_text=f"Ability: {Ability}"
+        line_4_x,line_4_y=base_font.size(line_4_text)
+        line_4_surface=base_font.render(line_4_text, True, (250, 250, 150))
+        screen.blit(line_4_surface, ((screen_x/2-line_4_x/2), (screen_y/2+(40)-line_4_y/2)))
+        line_5_text=f"{Ability_Description}"
+        line_5_x,line_5_y=base_font.size(line_5_text)
+        line_5_surface=base_font.render(line_5_text, True, (200, 200, 200))
+        screen.blit(line_5_surface, ((screen_x/2-line_5_x/2), (screen_y/2+(70)-line_5_y/2)))
         if mouse_pos_x<=(screen_x/2-left_arrow_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_x/2-80) and mouse_pos_y>=(screen_y/4+(30*4)-left_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-left_arrow_y/2+20) and mouse[0] and not_press==True:
             not_press=False
             if skin=="Normal":
@@ -422,6 +462,8 @@ while running:
                 skin="Egg"
             elif skin=="Eclipse":
                 skin="Mentor"
+            elif skin=="Bubblegum":
+                skin="Eclipse"
         if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_y/2+20) and mouse[0] and not_press==True:
             not_press=False
             if skin=="Normal":
@@ -437,7 +479,9 @@ while running:
             elif skin=="Mentor":
                 skin="Eclipse"
             elif skin=="Eclipse":
-                skin="Eclipse"
+                skin="Bubblegum"
+            elif skin=="Bubblegum":
+                skin="Bubblegum"
         if not mouse[0]:
             not_press=True
         if skin=="Normal":
@@ -454,6 +498,8 @@ while running:
             display.draw_skin6()
         elif skin=="Eclipse":
             display.draw_skin7()
+        elif skin=="Bubblegum":
+            display.draw_skin8()
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 running=False
