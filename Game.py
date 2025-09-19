@@ -4,10 +4,10 @@ import time
 pygame.font.init()
 base_font=pygame.font.SysFont("Arial", 25)
 pygame.init()
-screen_x_speed=750
-screen_y_speed=600
-screen_x=750
-screen_y=600
+screen_x_speed=1280
+screen_y_speed=720
+screen_x=1280
+screen_y=720
 clock=pygame.time.Clock()
 screen=pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
 t0=time.time()
@@ -390,6 +390,8 @@ while running:
         if keys[pygame.K_ESCAPE]:
             game=0
     if game==3:
+        Description_font_size=20
+        desc_font=pygame.font.SysFont("Arial", Description_font_size)
         if skin=="Normal":
             Ability="N/A"
             Ability_Description="N/A"
@@ -397,17 +399,17 @@ while running:
             Ability="N/A"
             Ability_Description="N/A"
         elif skin=="Dark":
-            Ability="N/A"
-            Ability_Description="N/A"
+            Ability="Dark Shift"
+            Ability_Description="K: Teleports you to your cursor at the cost of 50% your score"
         elif skin=="Kevin":
-            Ability="N/A"
-            Ability_Description="N/A"
+            Ability="Wrap-Around"
+            Ability_Description="Allows The player to wrap around the screen"
         elif skin=="Egg":
             Ability="N/A"
             Ability_Description="N/A"
         elif skin=="Mentor":
-            Ability="N/A"
-            Ability_Description="N/A"
+            Ability="Superposition"
+            Ability_Description="K: Warps you across the map at the cost of 10% your score"
         elif skin=="Eclipse":
             Ability="N/A"
             Ability_Description="N/A"
@@ -415,11 +417,11 @@ while running:
             Ability="N/A"
             Ability_Description="N/A"
         elif skin=="Fireball":
-            Ability="N/A"
-            Ability_Description="N/A"
+            Ability="Blazing Speed"
+            Ability_Description="Shift 2x your speed instead of 0.5x it"
         elif skin=="Frost":
-            Ability="N/A"
-            Ability_Description="N/A"
+            Ability="Freeze"
+            Ability_Description="Your size doesnt decrease when you hold shift"
         keys=pygame.key.get_pressed()
         mouse_pos_x, mouse_pos_y=pygame.mouse.get_pos()
         mouse=pygame.mouse.get_pressed(num_buttons=3)
@@ -471,8 +473,8 @@ while running:
         line_4_surface=base_font.render(line_4_text, True, (250, 250, 150))
         screen.blit(line_4_surface, ((screen_x/2-line_4_x/2), (screen_y/2+(40)-line_4_y/2)))
         line_5_text=f"{Ability_Description}"
-        line_5_x,line_5_y=base_font.size(line_5_text)
-        line_5_surface=base_font.render(line_5_text, True, (200, 200, 200))
+        line_5_x,line_5_y=desc_font.size(line_5_text)
+        line_5_surface=desc_font.render(line_5_text, True, (200, 200, 200))
         screen.blit(line_5_surface, ((screen_x/2-line_5_x/2), (screen_y/2+(70)-line_5_y/2)))
         if mouse_pos_x<=(screen_x/2-left_arrow_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_x/2-80) and mouse_pos_y>=(screen_y/4+(30*4)-left_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-left_arrow_y/2+20) and mouse[0] and not_press==True:
             not_press=False
