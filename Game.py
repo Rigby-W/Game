@@ -4,10 +4,10 @@ import time
 pygame.font.init()
 base_font=pygame.font.SysFont("Arial", 25)
 pygame.init()
-screen_x_speed=1280
-screen_y_speed=720
-screen_x=1280
-screen_y=720
+screen_x_speed=750
+screen_y_speed=600
+screen_x=750
+screen_y=600
 clock=pygame.time.Clock()
 screen=pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
 t0=time.time()
@@ -90,6 +90,15 @@ class Player(object):
     def draw_skin8(self):
         pygame.draw.circle(screen, (255,50,50), self.player_pos, player_size)
         pygame.draw.circle(screen, (255,150,150), self.player_pos, player_size*0.9)
+    def draw_skin9(self):
+        pygame.draw.circle(screen, (200,20,0), self.player_pos, player_size)
+        pygame.draw.circle(screen, (200,100,0), self.player_pos, player_size*0.7)
+        pygame.draw.circle(screen, (200,200,0), self.player_pos, player_size*0.4)
+        pygame.draw.circle(screen, (255,255,255), self.player_pos, player_size*0.2)
+    def draw_skin10(self):
+        pygame.draw.circle(screen, (255,255,255), self.player_pos, player_size)
+        pygame.draw.circle(screen, (150,150,200), self.player_pos, player_size*0.9)
+        pygame.draw.circle(screen, (50,50,200), self.player_pos, player_size*0.6)
 class Display_Player(object):
     def __init__(self):
         self.player_pos=display_pos
@@ -120,6 +129,15 @@ class Display_Player(object):
     def draw_skin8(self):
         pygame.draw.circle(screen, (255,150,150), self.player_pos, display_size)
         pygame.draw.circle(screen, (255,120,120), self.player_pos, display_size*0.9)
+    def draw_skin9(self):
+        pygame.draw.circle(screen, (200,20,0), self.player_pos, display_size)
+        pygame.draw.circle(screen, (200,100,0), self.player_pos, display_size*0.7)
+        pygame.draw.circle(screen, (200,200,0), self.player_pos, display_size*0.4)
+        pygame.draw.circle(screen, (255,255,255), self.player_pos, display_size*0.2)
+    def draw_skin10(self):
+        pygame.draw.circle(screen, (255,255,255), self.player_pos, display_size)
+        pygame.draw.circle(screen, (150,150,200), self.player_pos, display_size*0.9)
+        pygame.draw.circle(screen, (100,100,200), self.player_pos, display_size*0.6)
 apple_p=Apple_Purple()
 apple_r=Apple_Red()
 apple_g=Apple_Green()
@@ -217,6 +235,10 @@ while running:
             player.draw_skin7()
         elif skin=="Bubblegum":
             player.draw_skin8()
+        elif skin=="Fireball":
+            player.draw_skin9()
+        elif skin=="Frost":
+            player.draw_skin10()
         apple_r.draw_apple()
         apple_g.draw_apple()
         apple_p.draw_apple()
@@ -392,6 +414,12 @@ while running:
         elif skin=="Bubblegum":
             Ability="N/A"
             Ability_Description="N/A"
+        elif skin=="Fireball":
+            Ability="N/A"
+            Ability_Description="N/A"
+        elif skin=="Frost":
+            Ability="N/A"
+            Ability_Description="N/A"
         keys=pygame.key.get_pressed()
         mouse_pos_x, mouse_pos_y=pygame.mouse.get_pos()
         mouse=pygame.mouse.get_pressed(num_buttons=3)
@@ -449,7 +477,7 @@ while running:
         if mouse_pos_x<=(screen_x/2-left_arrow_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_x/2-80) and mouse_pos_y>=(screen_y/4+(30*4)-left_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-left_arrow_y/2+20) and mouse[0] and not_press==True:
             not_press=False
             if skin=="Normal":
-                skin="Normal"
+                skin="Frost"
             elif skin=="Classic":
                 skin="Normal"
             elif skin=="Dark":
@@ -464,6 +492,10 @@ while running:
                 skin="Mentor"
             elif skin=="Bubblegum":
                 skin="Eclipse"
+            elif skin=="Fireball":
+                skin="Bubblegum"
+            elif skin=="Frost":
+                skin="Fireball"
         if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_y/2+20) and mouse[0] and not_press==True:
             not_press=False
             if skin=="Normal":
@@ -481,7 +513,11 @@ while running:
             elif skin=="Eclipse":
                 skin="Bubblegum"
             elif skin=="Bubblegum":
-                skin="Bubblegum"
+                skin="Fireball"
+            elif skin=="Fireball":
+                skin="Frost"
+            elif skin=="Frost":
+                skin="Normal"
         if not mouse[0]:
             not_press=True
         if skin=="Normal":
@@ -500,6 +536,10 @@ while running:
             display.draw_skin7()
         elif skin=="Bubblegum":
             display.draw_skin8()
+        elif skin=="Fireball":
+            display.draw_skin9()
+        elif skin=="Frost":
+            display.draw_skin10()
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 running=False
