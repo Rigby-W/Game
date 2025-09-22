@@ -400,25 +400,25 @@ while running:
             Ability_Description="N/A"
         elif skin=="Dark":
             Ability="Dark Shift"
-            Ability_Description="K: Teleports you to your cursor at the cost of 50% your score"
+            Ability_Description="K: Teleports you to your cursor -25% score"
         elif skin=="Kevin":
             Ability="Wrap-Around"
             Ability_Description="Allows The player to wrap around the screen"
         elif skin=="Egg":
-            Ability="N/A"
-            Ability_Description="N/A"
+            Ability="Scramble"
+            Ability_Description="K: randomly shuffles all apples, -10% score"
         elif skin=="Mentor":
             Ability="Superposition"
-            Ability_Description="K: Warps you across the map at the cost of 10% your score"
+            Ability_Description="K: Warps you across the map, -10% score"
         elif skin=="Eclipse":
-            Ability="N/A"
-            Ability_Description="N/A"
+            Ability="Gravity Well"
+            Ability_Description="Collect Apples from further away"
         elif skin=="Bubblegum":
-            Ability="N/A"
-            Ability_Description="N/A"
+            Ability="Blow-UP"
+            Ability_Description="K:+15% score, -25% size (usable if above 20 size)"
         elif skin=="Fireball":
             Ability="Blazing Speed"
-            Ability_Description="Shift 2x your speed instead of 0.5x it"
+            Ability_Description="Shift 2x your speed instead of 0.33x it"
         elif skin=="Frost":
             Ability="Freeze"
             Ability_Description="Your size doesnt decrease when you hold shift"
