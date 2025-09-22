@@ -282,10 +282,12 @@ while running:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
         #slowdown mechanic for when you go too fast
         if keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT]):
-            if not skin=="Fireball": 
+            if not skin=="Fireball" or not skin=="Frost": 
                 speed =+ (max_speed/3)
             if skin=="Fireball": 
                 speed =+ (max_speed*2)
+            if skin=="Frost":
+                speed =+ (max_speed*0.5)
         if not (keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT])):  
             speed =+ max_speed
         #reset mechanic
@@ -485,7 +487,7 @@ while running:
             Ability_Description="Shift 2x your speed instead of 0.33x it"
         elif skin=="Frost":
             Ability="Freeze"
-            Ability_Description="Your size doesnt decrease when you hold shift"
+            Ability_Description="Your size doesnt decrease when you hold Shift"
         keys=pygame.key.get_pressed()
         mouse_pos_x, mouse_pos_y=pygame.mouse.get_pos()
         mouse=pygame.mouse.get_pressed(num_buttons=3)
