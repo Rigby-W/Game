@@ -387,8 +387,9 @@ while running:
                     player_size-=(player_size/2)
             if skin=="Egg":
                 apple_r.eat_apple()
-                apple_r.eat_apple()
-                apple_r.eat_apple()
+                apple_g.eat_apple()
+                apple_p.eat_apple()
+                score=+round(score*0.9)
             if skin=="Mentor":
                 player_pos.x=+(player_pos.x-screen_x)*-1
                 player_pos.y=+(player_pos.y-screen_y)*-1
