@@ -188,6 +188,7 @@ while running:
             t0 =+ t1
         pygame.display.flip()
     if game==1:
+        mouse_pos_x, mouse_pos_y=pygame.mouse.get_pos()
         keys=pygame.key.get_pressed()
         t1=time.time()
         game_time=t1-t0
@@ -246,42 +247,45 @@ while running:
         if (keys[pygame.K_w]  or keys[pygame.K_UP]):
             if player_pos.y>(0):
                 player_pos.y -= speed * dt / (player_size/10) * (screen_y/screen_y_speed)
-                if player_size > 5:
+                if player_size > 5 and not(skin=="Frost" and keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT])):
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
-            else:
+            elif skin=="Kevin" and player_pos.y<=(0):
                 player_pos.y =+ (screen_y)
                 if player_size > 5:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_s] or keys[pygame.K_DOWN]): 
             if player_pos.y<(screen_y):
                 player_pos.y += speed * dt / (player_size/10) * (screen_y/screen_y_speed)
-                if player_size > 5:
+                if player_size > 5 and not(skin=="Frost" and keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT])):
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
-            else:
+            elif skin=="Kevin" and player_pos.y>=(screen_y):
                 player_pos.y =+ 0
                 if player_size > 5:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_a] or keys[pygame.K_LEFT]): 
             if player_pos.x>(0):
                 player_pos.x -= speed * dt / (player_size/10) * (screen_x/screen_x_speed)
-                if player_size > 5:
+                if player_size > 5 and not(skin=="Frost" and keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT])):
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
-            else: 
+            elif skin=="Kevin" and player_pos.x<=(0): 
                 player_pos.x =+ (screen_x)
                 if player_size > 5:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
         if (keys[pygame.K_d] or keys[pygame.K_RIGHT]): 
             if player_pos.x<(screen_x):
                 player_pos.x += speed * dt / (player_size/10) * (screen_x/screen_x_speed)
-                if player_size > 5:
+                if player_size > 5 and not(skin=="Frost" and keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT])):
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
-            else:        
+            elif skin=="Kevin" and player_pos.x>=(screen_x):        
                 player_pos.x =+ 0
                 if player_size > 5:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
         #slowdown mechanic for when you go too fast
         if keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT]):
-            speed =+ (max_speed/3)
+            if not skin=="Fireball": 
+                speed =+ (max_speed/3)
+            if skin=="Fireball": 
+                speed =+ (max_speed*2)
         if not (keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT])):  
             speed =+ max_speed
         #reset mechanic
@@ -295,17 +299,25 @@ while running:
         if keys[pygame.K_ESCAPE]:
             game=0
         #red apple being eaten
-        if player_pos.x >= (apple_r.apple_pos_x-player_size) and player_pos.x <= (apple_r.apple_pos_x+player_size) and player_pos.y >= (apple_r.apple_pos_y-player_size) and player_pos.y <=(apple_r.apple_pos_y+player_size):
+        if not skin=="Eclipse" and player_pos.x >= (apple_r.apple_pos_x-player_size) and player_pos.x <= (apple_r.apple_pos_x+player_size) and player_pos.y >= (apple_r.apple_pos_y-player_size) and player_pos.y <=(apple_r.apple_pos_y+player_size):
+            score += round(player_size*1.5)
+            player_size += 5*(player_size/10)
+            apple_r.eat_apple()
+        if skin=="Eclipse" and player_pos.x >= (apple_r.apple_pos_x-player_size*2) and player_pos.x <= (apple_r.apple_pos_x+player_size*2) and player_pos.y >= (apple_r.apple_pos_y-player_size*2) and player_pos.y <=(apple_r.apple_pos_y+player_size*2):
             score += round(player_size*1.5)
             player_size += 5*(player_size/10)
             apple_r.eat_apple()
         #green apple being eaten
-        if player_pos.x >= (apple_g.apple_pos_x-player_size) and player_pos.x <= (apple_g.apple_pos_x+player_size) and player_pos.y >= (apple_g.apple_pos_y-player_size) and player_pos.y <=(apple_g.apple_pos_y+player_size) and player_size_rounded >= 15:
+        if not skin=="Eclipse" and player_pos.x >= (apple_g.apple_pos_x-player_size) and player_pos.x <= (apple_g.apple_pos_x+player_size) and player_pos.y >= (apple_g.apple_pos_y-player_size) and player_pos.y <=(apple_g.apple_pos_y+player_size) and player_size_rounded >= 15:
+            score += round(score*0.5)
+            player_size =+ 5
+            apple_g.eat_apple()
+        if skin=="Eclipse" and player_pos.x >= (apple_g.apple_pos_x-player_size*2) and player_pos.x <= (apple_g.apple_pos_x+player_size*2) and player_pos.y >= (apple_g.apple_pos_y-player_size*2) and player_pos.y <=(apple_g.apple_pos_y+player_size*2) and player_size_rounded >= 15:
             score += round(score*0.5)
             player_size =+ 5
             apple_g.eat_apple()
         #purple apple being eaten
-        if player_pos.x >= (apple_p.apple_pos_x-player_size) and player_pos.x <= (apple_p.apple_pos_x+player_size) and player_pos.y >= (apple_p.apple_pos_y-player_size) and player_pos.y <=(apple_p.apple_pos_y+player_size):
+        if not skin=="Eclipse" and player_pos.x >= (apple_p.apple_pos_x-player_size) and player_pos.x <= (apple_p.apple_pos_x+player_size) and player_pos.y >= (apple_p.apple_pos_y-player_size) and player_pos.y <=(apple_p.apple_pos_y+player_size):
             #purple apple's "loot table" (a.k.a. what the apple does) 
             chance=random.randint(0,9)
             if chance==0:
@@ -334,6 +346,58 @@ while running:
                 player_pos.x=random.randint(round(player_size), round(screen_x-player_size))
                 player_pos.y=random.randint(round(player_size), round(screen_y-player_size))
             apple_p.eat_apple()
+        if skin=="Eclipse" and player_pos.x >= (apple_p.apple_pos_x-player_size*2) and player_pos.x <= (apple_p.apple_pos_x+player_size*2) and player_pos.y >= (apple_p.apple_pos_y-player_size*2) and player_pos.y <=(apple_p.apple_pos_y+player_size*2):
+            #purple apple's "loot table" (a.k.a. what the apple does) 
+            chance=random.randint(0,9)
+            if chance==0:
+                score += round(player_size*3)
+            elif chance==1:
+                score -= round(player_size*2)
+            elif chance==2:
+                score += round(score*player_size/10)
+            elif chance==3:
+                score -= round(score*0.5)
+            elif chance==4:
+                player_size =+ 25
+            elif chance==5:
+                if player_size > 15:
+                    player_size -= 10
+                else:
+                    player_size =+ 5
+            elif chance==6:
+                player_size += player_size
+            elif chance==7:
+                score += 0
+            elif chance==8:
+                apple_r.eat_apple()
+                apple_g.eat_apple()
+            elif chance==9:
+                player_pos.x=random.randint(round(player_size), round(screen_x-player_size))
+                player_pos.y=random.randint(round(player_size), round(screen_y-player_size))
+            apple_p.eat_apple()
+        #Abilities
+        if (keys[pygame.K_z]) and Ability==False:
+            if skin=="Dark":
+                player_pos.x=+mouse_pos_x
+                player_pos.y=+mouse_pos_y
+                score=+round(score*0.5)
+                if player_size>=10:
+                    player_size-=(player_size/2)
+            if skin=="Egg":
+                apple_r.eat_apple()
+                apple_r.eat_apple()
+                apple_r.eat_apple()
+            if skin=="Mentor":
+                player_pos.x=+(player_pos.x-screen_x)*-1
+                player_pos.y=+(player_pos.y-screen_y)*-1
+                score=+round(score*0.8)
+            if skin=="Bubblegum":
+                if player_size>=20:
+                    score=+round(score*1.15)
+                    player_size=+(player_size*0.75)
+            Ability=True
+        elif not (keys[pygame.K_z]):
+            Ability=False
         pygame.display.flip()
         dt=clock.tick(60) / 1000
     if game==2:
@@ -400,22 +464,22 @@ while running:
             Ability_Description="N/A"
         elif skin=="Dark":
             Ability="Dark Shift"
-            Ability_Description="K: Teleports you to your cursor -25% score"
+            Ability_Description="Z: Teleports you to your cursor -50% score and reduces size"
         elif skin=="Kevin":
             Ability="Wrap-Around"
             Ability_Description="Allows The player to wrap around the screen"
         elif skin=="Egg":
             Ability="Scramble"
-            Ability_Description="K: randomly shuffles all apples, -10% score"
+            Ability_Description="Z: randomly shuffles all apples, -10% score"
         elif skin=="Mentor":
             Ability="Superposition"
-            Ability_Description="K: Warps you across the map, -10% score"
+            Ability_Description="Z: Warps you across the map, -20% score"
         elif skin=="Eclipse":
             Ability="Gravity Well"
             Ability_Description="Collect Apples from further away"
         elif skin=="Bubblegum":
             Ability="Blow-UP"
-            Ability_Description="K:+15% score, -25% size (usable if above 20 size)"
+            Ability_Description="Z:+15% score, -25% size (usable if above 20 size)"
         elif skin=="Fireball":
             Ability="Blazing Speed"
             Ability_Description="Shift 2x your speed instead of 0.33x it"
