@@ -396,7 +396,7 @@ while running:
             if skin=="Bubblegum":
                 if player_size>=20:
                     score=+round(score*1.15)
-                    player_size=+(player_size*0.75)
+                    player_size=+(player_size*0.8)
             Ability=True
         elif not (keys[pygame.K_z]):
             Ability=False
@@ -481,7 +481,7 @@ while running:
             Ability_Description="Collect Apples from further away"
         elif skin=="Bubblegum":
             Ability="Blow-UP"
-            Ability_Description="Z:+15% score, -25% size (usable if above 20 size)"
+            Ability_Description="Z:+15% score, -20% size (usable if above 20 size)"
         elif skin=="Fireball":
             Ability="Blazing Speed"
             Ability_Description="Shift 2x your speed instead of 0.33x it"
