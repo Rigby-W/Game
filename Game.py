@@ -282,12 +282,10 @@ while running:
                     player_size -= 0.05*(player_size-5)*dt*(speed/200)
         #slowdown mechanic for when you go too fast
         if keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT]):
-            if not skin=="Fireball" or not skin=="Frost": 
-                speed =+ (max_speed/3)
+            if not skin=="Fireball": 
+                speed =+ (max_speed/2)
             if skin=="Fireball": 
                 speed =+ (max_speed*2)
-            if skin=="Frost":
-                speed =+ (max_speed*0.5)
         if not (keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT] or (keys[pygame.K_LSHIFT] and keys[pygame.K_RSHIFT])):  
             speed =+ max_speed
         #reset mechanic
@@ -382,22 +380,22 @@ while running:
             if skin=="Dark":
                 player_pos.x=+mouse_pos_x
                 player_pos.y=+mouse_pos_y
-                score=+round(score*0.5)
+                score=+round(score*0.75)
                 if player_size>=10:
-                    player_size-=(player_size/2)
+                    player_size-=(player_size/1.5)
             if skin=="Egg":
                 apple_r.eat_apple()
                 apple_g.eat_apple()
                 apple_p.eat_apple()
-                score=+round(score*0.9)
+                score=+round(score*0.95)
             if skin=="Mentor":
                 player_pos.x=+(player_pos.x-screen_x)*-1
                 player_pos.y=+(player_pos.y-screen_y)*-1
-                score=+round(score*0.8)
+                score=+round(score*0.9)
             if skin=="Bubblegum":
-                if player_size>=20:
-                    score=+round(score*1.15)
-                    player_size=+(player_size*0.8)
+                if player_size>=25:
+                    score=+round(score*1.10)
+                    player_size=+(player_size*0.85)
             Ability=True
         elif not (keys[pygame.K_z]):
             Ability=False
@@ -467,25 +465,25 @@ while running:
             Ability_Description="N/A"
         elif skin=="Dark":
             Ability="Dark Shift"
-            Ability_Description="Z: Teleports you to your cursor -50% score and reduces size"
+            Ability_Description="Z: Teleports you to your cursor -25% score and reduces size"
         elif skin=="Kevin":
             Ability="Wrap-Around"
             Ability_Description="Allows The player to wrap around the screen"
         elif skin=="Egg":
             Ability="Scramble"
-            Ability_Description="Z: randomly shuffles all apples, -10% score"
+            Ability_Description="Z: randomly shuffles all apples, -5% score"
         elif skin=="Mentor":
             Ability="Superposition"
-            Ability_Description="Z: Warps you across the map, -20% score"
+            Ability_Description="Z: Warps you across the map, -10% score"
         elif skin=="Eclipse":
             Ability="Gravity Well"
             Ability_Description="Collect Apples from further away"
         elif skin=="Bubblegum":
             Ability="Blow-UP"
-            Ability_Description="Z:+15% score, -20% size (usable if above 20 size)"
+            Ability_Description="Z:+10% score, -15% size (usable if above 25 size)"
         elif skin=="Fireball":
             Ability="Blazing Speed"
-            Ability_Description="Shift 2x your speed instead of 0.33x it"
+            Ability_Description="Shift 2x your speed instead of 0.5x it"
         elif skin=="Frost":
             Ability="Freeze"
             Ability_Description="Your size doesnt decrease when you hold Shift"
