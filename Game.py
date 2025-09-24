@@ -18,7 +18,7 @@ highscore=0
 player_size=10
 display_size=25
 player_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-display_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+display_pos=(screen_x/2, screen_y/2)
 skin="Normal"
 class Apple_Red(object):
     def eat_apple(self):
