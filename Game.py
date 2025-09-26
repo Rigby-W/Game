@@ -455,6 +455,8 @@ while running:
         if keys[pygame.K_ESCAPE]:
             game=0
     if game==3:
+        display_pos=+pygame.Vector2(screen.get_width()/2,screen.get_height()/2)
+        display.__init__()
         Description_font_size=20
         desc_font=pygame.font.SysFont("Arial", Description_font_size)
         if skin=="Normal":
