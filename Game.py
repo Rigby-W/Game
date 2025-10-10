@@ -20,6 +20,8 @@ display_size=25
 player_pos=pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 display_pos=(screen_x/2, screen_y/2)
 skin="Normal"
+timer_end=False
+Timer_Limit=3
 class Apple_Red(object):
     def eat_apple(self):
         self.eaten=True
@@ -194,6 +196,8 @@ while running:
         game_time=t1-t0
         game_time_min=round(game_time//60)
         game_time_sec=round(game_time%60)
+        if game_time_min==Timer_Limit:
+            game=4
         if highscore < score:
             highscore =+ score
         else:
@@ -455,7 +459,7 @@ while running:
         if keys[pygame.K_ESCAPE]:
             game=0
     if game==3:
-        display_pos=+pygame.Vector2(screen.get_width()/2,screen.get_height()/2)
+        display_pos=+pygame.Vector2(screen.get_width()/2,screen_y/4+(30*7.5))
         display.__init__()
         Description_font_size=20
         desc_font=pygame.font.SysFont("Arial", Description_font_size)
@@ -519,31 +523,58 @@ while running:
             max_speed=200
         if mouse_pos_x<=(screen_x/2-speed_3_x/2+120) and mouse_pos_x>=(screen_x/2-speed_3_x/2+80) and mouse_pos_y>=(screen_y/4+(30*2)-speed_2_y/2) and mouse_pos_y<=(screen_y/4+(30*2)-speed_2_y/2+20) and mouse[0]:
             max_speed=400
+        if Timer_Limit==-1:
+            timer_text=f"Game Time: infinite"
+        else:
+            timer_text=f"Game Time: {Timer_Limit} min"
+        timer_text_x,timer_text_y=base_font.size(timer_text)
+        timer_text_surface=base_font.render(timer_text, True, (200, 200, 200))
+        screen.blit(timer_text_surface, ((screen_x/2-timer_text_x/2), (screen_y/4+(30*3)-timer_text_y/2)))
+        left_arrow_timer_text="<"
+        left_arrow_timer_x,left_arrow_timer_y=base_font.size(left_arrow_timer_text)
+        left_arrow_timer_surface=base_font.render(left_arrow_timer_text, True, (200, 200, 200))
+        screen.blit(left_arrow_timer_surface, ((screen_x/2-left_arrow_timer_x/2-80), (screen_y/4+(30*4)-left_arrow_timer_y/2)))
+        right_arrow_timer_text=">"
+        right_arrow_timer_x,right_arrow_timer_y=base_font.size(right_arrow_timer_text)
+        right_arrow_timer_surface=base_font.render(right_arrow_timer_text, True, (200, 200, 200))
+        screen.blit(right_arrow_timer_surface, ((screen_x/2-right_arrow_timer_x/2+80), (screen_y/4+(30*4)-right_arrow_timer_y/2)))
+        if mouse_pos_x<=(screen_x/2-left_arrow_timer_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_timer_x/2-80) and mouse_pos_y>=(screen_y/4+(30*4)-left_arrow_timer_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-left_arrow_timer_y/2+20) and mouse[0] and not_press==True:
+            not_press=False
+            if Timer_Limit==1 or Timer_Limit==-1:
+                Timer_Limit=-1
+            else:
+                Timer_Limit-=1
+        if mouse_pos_x<=(screen_x/2-right_arrow_timer_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_timer_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_timer_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_timer_y/2+20) and mouse[0] and not_press==True:
+            not_press=False
+            if Timer_Limit==-1:
+                Timer_Limit=+1
+            else:
+                Timer_Limit+=1
         line_3_text=f"Player Selector"
         line_3_x,line_3_y=base_font.size(line_3_text)
         line_3_surface=base_font.render(line_3_text, True, (200, 200, 200))
-        screen.blit(line_3_surface, ((screen_x/2-line_3_x/2), (screen_y/4+(30*3)-line_3_y/2)))
+        screen.blit(line_3_surface, ((screen_x/2-line_3_x/2), (screen_y/4+(30*5)-line_3_y/2)))
         left_arrow_text="<"
         left_arrow_x,left_arrow_y=base_font.size(left_arrow_text)
         left_arrow_surface=base_font.render(left_arrow_text, True, (200, 200, 200))
-        screen.blit(left_arrow_surface, ((screen_x/2-left_arrow_x/2-80), (screen_y/4+(30*4)-left_arrow_y/2)))
+        screen.blit(left_arrow_surface, ((screen_x/2-left_arrow_x/2-80), (screen_y/4+(30*6)-left_arrow_y/2)))
         skin_text=f"{skin}"
         skin_x,skin_y=base_font.size(skin_text)
         skin_surface=base_font.render(skin_text, True, (200, 200, 200))
-        screen.blit(skin_surface, ((screen_x/2-skin_x/2), (screen_y/4+(30*4)-skin_y/2)))
+        screen.blit(skin_surface, ((screen_x/2-skin_x/2), (screen_y/4+(30*6)-skin_y/2)))
         right_arrow_text=">"
         right_arrow_x,right_arrow_y=base_font.size(right_arrow_text)
         right_arrow_surface=base_font.render(right_arrow_text, True, (200, 200, 200))
-        screen.blit(right_arrow_surface, ((screen_x/2-right_arrow_x/2+80), (screen_y/4+(30*4)-right_arrow_y/2)))
+        screen.blit(right_arrow_surface, ((screen_x/2-right_arrow_x/2+80), (screen_y/4+(30*6)-right_arrow_y/2)))
         line_4_text=f"Ability: {Ability}"
         line_4_x,line_4_y=base_font.size(line_4_text)
         line_4_surface=base_font.render(line_4_text, True, (250, 250, 150))
-        screen.blit(line_4_surface, ((screen_x/2-line_4_x/2), (screen_y/2+(40)-line_4_y/2)))
+        screen.blit(line_4_surface, ((screen_x/2-line_4_x/2), (screen_y/4+(30*9)-line_4_y/2)))
         line_5_text=f"{Ability_Description}"
         line_5_x,line_5_y=desc_font.size(line_5_text)
         line_5_surface=desc_font.render(line_5_text, True, (200, 200, 200))
-        screen.blit(line_5_surface, ((screen_x/2-line_5_x/2), (screen_y/2+(70)-line_5_y/2)))
-        if mouse_pos_x<=(screen_x/2-left_arrow_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_x/2-80) and mouse_pos_y>=(screen_y/4+(30*4)-left_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-left_arrow_y/2+20) and mouse[0] and not_press==True:
+        screen.blit(line_5_surface, ((screen_x/2-line_5_x/2), (screen_y/4+(30*10)-line_5_y/2)))
+        if mouse_pos_x<=(screen_x/2-left_arrow_x/2-68) and mouse_pos_x>=(screen_x/2-left_arrow_x/2-80) and mouse_pos_y>=(screen_y/4+(30*6)-left_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*6)-left_arrow_y/2+20) and mouse[0] and not_press==True:
             not_press=False
             if skin=="Normal":
                 skin="Frost"
@@ -565,7 +596,7 @@ while running:
                 skin="Bubblegum"
             elif skin=="Frost":
                 skin="Fireball"
-        if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*4)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*4)-right_arrow_y/2+20) and mouse[0] and not_press==True:
+        if mouse_pos_x<=(screen_x/2-right_arrow_x/2+92) and mouse_pos_x>=(screen_x/2-right_arrow_x/2+80) and mouse_pos_y>=(screen_y/4+(30*6)-right_arrow_y/2) and mouse_pos_y<=(screen_y/4+(30*6)-right_arrow_y/2+20) and mouse[0] and not_press==True:
             not_press=False
             if skin=="Normal":
                 skin="Classic"
@@ -618,5 +649,32 @@ while running:
         pygame.display.flip()
         #shifting the screens
         if keys[pygame.K_ESCAPE]:
+            game=0
+    if game==4:
+        keys=pygame.key.get_pressed()
+        start_text="Press Escape to Exit to Main Menu"
+        highscore_final_text=f"Your highscore is {highscore} points"
+        start_font_x,start_font_y=base_font.size(start_text)
+        highscore_final_font_x,highscore_final_font_y=base_font.size(highscore_final_text)
+        start_surface=base_font.render(start_text, True, (200, 200, 200))
+        highscore_final_surface=base_font.render(highscore_final_text, True, (200, 200, 200))
+        screen.fill((0, 0, 100))
+        screen.blit(start_surface, ((screen_x/2-start_font_x/2), (screen_y/8-start_font_y/2)))
+        screen.blit(highscore_final_surface, ((screen_x/2-highscore_final_font_x/2), (screen_y/8+(30)-highscore_final_font_y/2)))
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                running=False
+            elif event.type==pygame.VIDEORESIZE:
+                screen_x, screen_y=event.size
+                screen=pygame.display.set_mode((screen_x, screen_y), pygame.RESIZABLE)
+        pygame.display.flip()
+        #shifting the screens
+        if keys[pygame.K_ESCAPE]:
+            score=+0
+            player_pos=+pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+            player_size =+ 10
+            t0=t1
+            player.__init__()
+            highscore=+0
             game=0
 pygame.quit()
